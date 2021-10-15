@@ -12,7 +12,12 @@ type UserState = {
   isLoggedIn: boolean
   username: string
   avatarUrl: string
+  bio: string
+  email: string
+  htmlUrl: string
+  location: string
   followers: number
+  following: number
 }
 type LoginAction = {
   type: string
