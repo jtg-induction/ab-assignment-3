@@ -1,31 +1,15 @@
 import React from 'react'
-import { useAppSelector, useAppDispatch } from '@App/hooks'
-import {
-  Button as Btn,
-  Button,
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  Typography,
-} from '@mui/material'
-import './styles.scss'
+import { Button, Typography } from '@mui/material'
+import { AnyAction, Dispatch } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as IconLocation } from '@Images/icon-location.svg'
 import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
-import { setIsLoggedIn } from '@App/store/user'
-import { AnyAction, Dispatch } from 'redux'
-import { useDispatch } from 'react-redux'
-import { Box } from '@mui/system'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
+import './styles.scss'
 import { PropsI } from './type'
 
 export const Profile: React.FC<PropsI> = (props) => {
   const {
-    isLoggedIn,
     avatarUrl,
     followers,
     following,
@@ -34,7 +18,7 @@ export const Profile: React.FC<PropsI> = (props) => {
     bio,
     email,
     htmlUrl,
-  } = useAppSelector((state) => state.user)
+  } = useSelector((state: IAppState) => state.user)
   const dispatch: Dispatch<AnyAction> = useDispatch()
   return (
     <div className="user-profile">
