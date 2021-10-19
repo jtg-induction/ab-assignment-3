@@ -1,0 +1,8 @@
+@import '/src/styles/main.scss';
+.login-container {
+  @include flex(center, center, $direction: column);
+  margin-top: 80px;
+}
+.MuiFormHelperText-root {
+  color: $red !important;
+}

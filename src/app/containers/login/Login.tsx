@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import styles from './styles'
 
-export const Login: React.FC = () => {
+export const Login: React.FC<PropsI> = () => {
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const { username, helperText } = useSelector(
     (state: IAppState) => state.login,
@@ -37,6 +37,7 @@ export const Login: React.FC = () => {
           history.push('/error')
         } else {
           if (result.isLoggedIn) {
+            console.log(result)
             dispatch(setUserData(result))
             history.push(AppRoute.PrivateRoutes.Profile)
           } else {
@@ -84,6 +85,6 @@ export const Login: React.FC = () => {
           fullWidth
         />
       </Box>
-    </Container>
+    </Box>
   )
 }
