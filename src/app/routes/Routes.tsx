@@ -10,23 +10,17 @@ export const Routes: React.FC = () => {
   return (
     <Router>
       <Switch>
-        <Route
-          path={AppRoute.PublicRoutes.SignIn}
-          component={LoginPage}
-          exact
-        />
         <GuardedRoute
+          path={AppRoute.PublicRoutes.SignIn}
+          Component={LoginPage}
           auth={!isLoggedIn}
-          path={AppRoute.PublicRoutes.SignIn}
-          Component={Login}
-          pathTo={AppRoute.PrivateRoutes.Profile}
+          toPath={AppRoute.PrivateRoutes.Profile}
         />
         <GuardedRoute
-          auth={isLoggedIn}
-          Component={Profile}
           path={AppRoute.PrivateRoutes.Profile}
           Component={ProfilePage}
           auth={isLoggedIn}
+          toPath={AppRoute.PublicRoutes.SignIn}
         />
         <Route component={PageNotFound} />
       </Switch>
