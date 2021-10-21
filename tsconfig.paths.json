@@ -13,7 +13,8 @@
       "@Store/*": ["./src/app/store/*"],
       "@Images/*": ["./src/assets/images/*"],
       "@Fonts/*": ["./src/assets/fonts/*"],
-      "@Src/*": ["./src/*"]
+      "@Src/*": ["./src/*"],
+      "@Pages/*": ["./src/app/pages/*"]
     }
   }
 }

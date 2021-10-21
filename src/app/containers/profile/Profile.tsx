@@ -7,6 +7,7 @@ import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
 import './styles.scss'
 import { PropsI } from './type'
+import { setIsLoggedIn } from '@App/store/user'
 
 export const Profile: React.FC<PropsI> = (props) => {
   const {

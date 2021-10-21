@@ -4,7 +4,6 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 type PropsI = {
   auth: boolean
   path: string
-  pathTo: string
   Component: React.FC
 }
 

@@ -16,15 +16,7 @@ import {
 } from '@mui/material'
 import styles from './styles'
 
-import { Button } from '@Components/Button'
-import { setHelperText, setPassword, setUsername } from '@App/store/login'
-import { AppRoute } from '@Constants/index'
-import { LoginService } from '@Services/login'
-import { setUserData } from '@App/store/user'
-import { ReactComponent as Logo } from '@Images/Github-logo.svg'
-import './styles.scss'
-
-export const Login: React.FC<PropsI> = () => {
+export const Login: React.FC = () => {
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const { username, helperText } = useSelector(
     (state: IAppState) => state.login,
@@ -93,6 +85,6 @@ export const Login: React.FC<PropsI> = () => {
           fullWidth
         />
       </Box>
-    </Box>
+    </Container>
   )
 }
