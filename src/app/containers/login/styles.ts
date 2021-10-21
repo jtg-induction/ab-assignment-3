@@ -18,5 +18,9 @@ const styles: StyleProps = {
     ml: 0.5,
     color: 'secondary.main',
   },
+  submitButton: {
+    p: '10px',
+    borderRadius: '20px',
+  },
 }
 export default styles

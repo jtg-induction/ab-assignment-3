@@ -82,6 +82,7 @@ export const Login: React.FC = () => {
           variant="contained"
           color="primary"
           children="Sign In"
+          sx={styles.submitButton}
           fullWidth
         />
       </Box>

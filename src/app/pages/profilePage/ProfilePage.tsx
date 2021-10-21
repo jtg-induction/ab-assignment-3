@@ -1,13 +1,13 @@
 import { Suggestions } from '@Containers/suggestions'
 import { Profile, Search } from '@Containers/index'
 import { Box, Container } from '@mui/material'
-import './styles.scss'
+import styles from './styles'
 
 export const ProfilePage = () => {
   return (
-    <Container className="profile-page-container" maxWidth="xl">
+    <Container sx={styles.root} maxWidth="xl">
       <Search />
-      <Box className="profile-content">
+      <Box sx={styles.content}>
         <Profile />
         <Suggestions />
       </Box>
