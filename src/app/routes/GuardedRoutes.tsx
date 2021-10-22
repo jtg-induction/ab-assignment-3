@@ -1,5 +1,5 @@
-import { PageNotFound } from '@App/pages/404'
 import { Route, Redirect, Switch } from 'react-router-dom'
+import { PageNotFound } from '@Pages/index'
 
 type PropsI = {
   auth: boolean

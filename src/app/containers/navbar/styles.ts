@@ -1,14 +1,17 @@
 import { StyleProps } from './type'
 
 const styles: StyleProps = {
-  root: {},
+  root: {
+    backgroundColor: 'primary.main',
+  },
   content: {
     maxWidth: '1000px',
     margin: '0 auto',
-    minHeight: '60vh',
+    boxShadow: 'none',
     display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: '10px',
+    padding: 1,
   },
 }
 export default styles
