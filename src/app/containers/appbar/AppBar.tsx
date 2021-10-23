@@ -6,9 +6,10 @@ import { Search, SearchRow } from '@Components/index'
 import { Logout } from '@Containers/index'
 import styles from './styles'
 import { useDebounce, SearchService } from '@Services/search'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { setSearchData, setShowStatus } from '@App/store/search'
 import OutsideAlerter from './OutsideAlerter'
+import debounce from 'lodash.debounce'
 
 export const AppBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('')
@@ -17,9 +18,9 @@ export const AppBar: React.FC = () => {
     (state: IAppState) => state.search,
     shallowEqual
   )
-  const debouncedValue = useDebounce(searchValue, 500)
+  // const debouncedValue = useDebounce(searchValue, 500)
   useEffect(() => {
-    SearchService(debouncedValue).then((result) => {
+    SearchService(searchValue).then((result) => {
       if (result) {
         dispatch(setSearchData(result))
         console.log(result)
@@ -27,11 +28,19 @@ export const AppBar: React.FC = () => {
         dispatch(setSearchData([]))
       }
     })
-  }, [debouncedValue, dispatch])
+  }, [dispatch, searchValue])
   const handleSearchText = (value: string) => {
     dispatch(setShowStatus(true))
     setSearchValue(value)
   }
+  const debouncedHandle = useMemo(() => debounce(handleSearchText, 300), [])
+
+  useEffect(() => {
+    return () => {
+      debouncedHandle.cancel()
+    }
+  }, [debouncedHandle])
+
   const userList = () => {
     let arr = users.map((user) => (
       <SearchRow
@@ -48,15 +57,26 @@ export const AppBar: React.FC = () => {
       <>
         <Box sx={styles.root}>
           <MuiAppBar sx={styles.content} position="static">
-            <Search
-              handleSearchText={(value: string) => handleSearchText(value)}
-            />
+            <form
+              onSubmit={(
+                e: React.BaseSyntheticEvent<
+                  Event,
+                  EventTarget & HTMLFormElement
+                >
+              ) => {
+                e.preventDefault()
+                debouncedHandle(e.target[0].value)
+              }}
+            >
+              <Search
+                handleSearchText={(value: string) => debouncedHandle(value)}
+              />
+            </form>
             <Logout />
           </MuiAppBar>
         </Box>
         {show ? (
           <Container
-            id="arjun"
             sx={{
               position: 'absolute',
               width: '850px',

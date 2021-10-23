@@ -15,10 +15,10 @@ export const SearchService = async (query: string) => {
           per_page: API.MAX_SEARCH_RESPONSE,
           q: query,
         },
-        // auth: {
-        //   username: 'arjun-bhatt-670',
-        //   password: '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',
-        // },
+        auth: {
+          username: 'arjun-bhatt-670',
+          password: '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',
+        },
       }
     )
 
