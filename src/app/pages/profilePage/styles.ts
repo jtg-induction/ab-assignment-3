@@ -1,7 +1,6 @@
 import { StyleProps } from './type'
 
 const styles: StyleProps = {
-  root: {},
   content: {
     maxWidth: '1000px',
     margin: '0 auto',

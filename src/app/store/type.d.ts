@@ -1,6 +1,7 @@
 interface IAppState {
   login: LoginState
   user: UserState
+  search: SearchState
 }
 type LoginState = {
   username: string
@@ -19,11 +20,25 @@ type UserState = {
   followers: number
   following: number
 }
+type SearchedUserState = {
+  id: number
+  username: string
+  avatarUrl: string
+  profileUrl: string
+}
+type SearchState = {
+  show: boolean
+  users: SearchedUserState[]
+}
 type LoginAction = {
   type: string
   value: any
 }
 type UserAction = {
+  type: string
+  value: any
+}
+type SearchAction = {
   type: string
   value: any
 }

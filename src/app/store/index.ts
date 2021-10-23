@@ -6,10 +6,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import ThunkMiddleware from 'redux-thunk'
 import loginReducer from './login'
 import userReducer from './user'
+import seachReducer from './search'
 
 const rootReducer = combineReducers({
   login: loginReducer,
   user: userReducer,
+  search: seachReducer,
 })
 const persistConfig = {
   key: 'root',

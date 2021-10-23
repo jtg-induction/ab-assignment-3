@@ -1,10 +1,10 @@
-import { APIURL } from '@Constants/index'
+import { API } from '@Constants/index'
 import { LoginServiceType } from './type'
 
 export const LoginService: LoginServiceType = async (username, password) => {
   //apply loader while api fetch
   try {
-    const response = await fetch(APIURL, {
+    const response = await fetch(API.USER_AUTH_URL, {
       headers: {
         authorization: 'token ' + password,
       },
