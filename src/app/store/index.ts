@@ -7,11 +7,13 @@ import ThunkMiddleware from 'redux-thunk'
 import loginReducer from './login'
 import userReducer from './user'
 import seachReducer from './search'
+import publicuserReducer from './publicuser'
 
 const rootReducer = combineReducers({
   login: loginReducer,
   user: userReducer,
   search: seachReducer,
+  publicuser: publicuserReducer,
 })
 const persistConfig = {
   key: 'root',

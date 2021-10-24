@@ -1,1 +1,3 @@
-export { SearchService, useDebounce } from './SearchService'
+import SearchService from './SearchService'
+
+export default SearchService

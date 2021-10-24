@@ -3,7 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { TextField, Button } from '@Components/index'
 import { AppRoute } from '@Constants/index'
-import { setHelperText } from '@Store/login'
+import { setHelperText, setPassword, setUsername } from '@Store/login'
 import { setUserData } from '@Store/user'
 import { LoginService } from '@Services/login'
 import { ReactComponent as Logo } from '@Images/Github-logo.svg'
@@ -38,6 +38,9 @@ export const Login: React.FC = () => {
         } else {
           if (result.isLoggedIn) {
             console.log(result)
+            dispatch(setUsername('' + formUsername))
+            dispatch(setPassword('' + formPassword))
+
             dispatch(setUserData(result))
             history.push(AppRoute.PrivateRoutes.Profile)
           } else {

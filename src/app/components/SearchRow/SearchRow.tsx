@@ -4,13 +4,10 @@ import { SearchRowProps } from './type'
 import styles from './styles'
 
 export const SearchRow: React.FC<SearchRowProps> = (props) => {
-  const { username, avatarUrl, profileUrl } = props
-  const changeUserInfo = () => {
-    // dispatch
-  }
+  const { username, avatarUrl, onClickHandler, profileUrl } = props
   return (
     <Box sx={styles.root}>
-      <Link sx={styles.item} href={profileUrl} onClick={changeUserInfo}>
+      <Link sx={styles.item} onClick={onClickHandler}>
         <Box sx={styles.profilePic}>
           <img src={avatarUrl} alt="profile pic" />
         </Box>

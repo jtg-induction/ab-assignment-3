@@ -3,4 +3,5 @@ export interface SearchRowProps {
   username: string
   avatarUrl: string
   profileUrl: string
+  onClickHandler: any
 }

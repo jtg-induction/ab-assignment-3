@@ -1,5 +1,6 @@
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { PageNotFound } from '@Pages/index'
+import { Profile } from '@App/containers'
 
 type PropsI = {
   auth: boolean
@@ -19,6 +20,7 @@ const GuardedRoute: React.FC<PropsI> = (props) => {
         }
         exact
       />
+      <Route path="/:id" component={Profile} exact />
       <Route component={PageNotFound} />
     </Switch>
   )

@@ -10,6 +10,16 @@ const styles: StyleProps = {
     padding: theme.typography.pxToRem(20),
     width: theme.typography.pxToRem(400),
   },
+  publicProfileRoot: {
+    margin: '0 auto',
+    mt: 10,
+  },
+  backButton: {
+    margin: '0 auto',
+    position: 'relative',
+    left: '400px',
+    top: '100px',
+  },
   profilePic: {
     height: theme.typography.pxToRem(96),
     width: theme.typography.pxToRem(96),

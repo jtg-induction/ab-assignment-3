@@ -2,20 +2,25 @@ import { SxProps, Theme } from '@mui/system'
 
 const styles: {
   root: SxProps<Theme>
-  item: SxProps<Theme>
+  item: any
   profilePic: SxProps<Theme>
   username: SxProps<Theme>
 } = {
   root: {
-    // width: '100%',
+    '&:hover': {
+      backgroundColor: 'primary.main',
+      borderRadius: '10px',
+    },
   },
   item: {
-    padding: 1.5,
+    padding: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     gap: '20px',
     textDecoration: 'none',
+    color: '#85144b',
+    cursor: 'pointer',
   },
   profilePic: {
     height: '3rem',

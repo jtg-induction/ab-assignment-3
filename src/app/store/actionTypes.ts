@@ -12,9 +12,13 @@ enum SearchActionTypes {
   set_searchdata = 'SET_SEARCHDATA',
   set_showstatus = 'SET_SHOWSTATUS ',
 }
+enum PublicUserActionTypes {
+  set_publicuserdata = 'SET_PUBLICUSERDATA',
+}
 
 export const ActionTypes = {
   LoginActionTypes,
   UserActionTypes,
   SearchActionTypes,
+  PublicUserActionTypes,
 }

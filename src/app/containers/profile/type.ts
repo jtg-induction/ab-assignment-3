@@ -9,4 +9,17 @@ export type StyleProps = {
   svg: SxProps<Theme>
   profileButton: SxProps<Theme>
   line: SxProps<Theme>
+  publicProfileRoot: SxProps<Theme>
+  backButton: SxProps<Theme>
+}
+export type GeneralUserState = {
+  isLoggedIn?: boolean
+  username: string
+  avatarUrl: string
+  bio: string
+  email: string
+  htmlUrl: string
+  location: string
+  followers: number
+  following: number
 }

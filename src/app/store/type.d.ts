@@ -2,6 +2,7 @@ interface IAppState {
   login: LoginState
   user: UserState
   search: SearchState
+  publicuser: PublicUserState
 }
 type LoginState = {
   username: string
@@ -11,6 +12,16 @@ type LoginState = {
 }
 type UserState = {
   isLoggedIn: boolean
+  username: string
+  avatarUrl: string
+  bio: string
+  email: string
+  htmlUrl: string
+  location: string
+  followers: number
+  following: number
+}
+type PublicUserState = {
   username: string
   avatarUrl: string
   bio: string
@@ -39,6 +50,10 @@ type UserAction = {
   value: any
 }
 type SearchAction = {
+  type: string
+  value: any
+}
+type PublicUserAction = {
   type: string
   value: any
 }
