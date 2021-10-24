@@ -4,6 +4,7 @@ const styles: StyleProps = {
   root: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-around',
     alignItems: 'center',
     boxShadow: '0 8px 40px -12px rgba(0, 0, 0, 0.3)',
     padding: '20px',

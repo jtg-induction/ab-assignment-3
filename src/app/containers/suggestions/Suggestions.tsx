@@ -15,9 +15,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { SuggestionService } from '@App/services/suggestions'
 import { setSuggestions } from '@App/store/suggestions'
 import styles from './styles'
-import { Button } from '@App/components'
+import { Button, SuggestionRow } from '@App/components'
+import { PublicUserService } from '@App/services/publicuser'
+import { setPublicUserData } from '@App/store/publicuser'
+import { useHistory } from 'react-router'
 
 export const Suggestions = () => {
+  const history = useHistory()
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const { users } = useSelector(
     (state: IAppState) => state.suggestions,
@@ -42,11 +46,30 @@ export const Suggestions = () => {
     })
   }, [authParam, dispatch])
 
+  const suggestionsList = () => {
+    let arr = users.map((user: SuggestionUserState) => (
+      <SuggestionRow
+        key={user.id}
+        username={user.username}
+        avatarUrl={user.avatarUrl}
+        onClickHandler={() => findPublicUser(user.username)}
+      />
+    ))
+    return arr
+  }
+
+  const findPublicUser = (uname: string) =>
+    PublicUserService(uname, authParam).then((result) => {
+      if (result) {
+        dispatch(setPublicUserData(result))
+        history.push(`/${uname}`)
+      }
+    })
+
   return (
     <Box sx={styles.root}>
-      {/* {users[0].username}
-      <Divider sx={styles.line} />
-      {users[1].username} */}
+      <Typography variant="h4">Who to Follow?</Typography>
+      <Box>{suggestionsList()}</Box>
     </Box>
   )
 }
