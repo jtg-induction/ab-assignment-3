@@ -1,3 +1,7 @@
 export type PublicUserServiceType = (
-  username: string
+  username: string,
+  authParam: {
+    username: string
+    password: string
+  }
 ) => Promise<PublicUserState | false>

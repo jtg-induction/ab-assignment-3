@@ -15,10 +15,14 @@ enum SearchActionTypes {
 enum PublicUserActionTypes {
   set_publicuserdata = 'SET_PUBLICUSERDATA',
 }
+enum SuggestionsActionTypes {
+  set_suggestions = 'SET_SUGGESTIONS',
+}
 
 export const ActionTypes = {
   LoginActionTypes,
   UserActionTypes,
   SearchActionTypes,
   PublicUserActionTypes,
+  SuggestionsActionTypes,
 }

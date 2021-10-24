@@ -8,12 +8,14 @@ import loginReducer from './login'
 import userReducer from './user'
 import seachReducer from './search'
 import publicuserReducer from './publicuser'
+import suggestionsReducer from './suggestions'
 
 const rootReducer = combineReducers({
   login: loginReducer,
   user: userReducer,
   search: seachReducer,
   publicuser: publicuserReducer,
+  suggestions: suggestionsReducer,
 })
 const persistConfig = {
   key: 'root',

@@ -3,6 +3,7 @@ interface IAppState {
   user: UserState
   search: SearchState
   publicuser: PublicUserState
+  suggestions: SuggestionsState
 }
 type LoginState = {
   username: string
@@ -41,6 +42,15 @@ type SearchState = {
   show: boolean
   users: SearchedUserState[]
 }
+type SuggestionUserState = {
+  index: number
+  id: number
+  username: string
+  avatarUrl: string
+}
+type SuggestionsState = {
+  users: SuggestionUserState[]
+}
 type LoginAction = {
   type: string
   value: any
@@ -54,6 +64,10 @@ type SearchAction = {
   value: any
 }
 type PublicUserAction = {
+  type: string
+  value: any
+}
+type SuggestionsAction = {
   type: string
   value: any
 }

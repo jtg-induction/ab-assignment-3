@@ -80,7 +80,7 @@ export const AppBar: React.FC = () => {
     return arr
   }
   const findPublicUser = (uname: string) =>
-    PublicUserService(uname).then((result) => {
+    PublicUserService(uname, authParam).then((result) => {
       if (result) {
         dispatch(setPublicUserData(result))
         history.push(`/${uname}`)
