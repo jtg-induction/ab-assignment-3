@@ -1,6 +1,6 @@
 import { ActionTypes } from '@App/store/actionTypes'
 export const setPublicUserData = (value: PublicUserState) => {
-  const action: LoginAction = {
+  const action: PublicUserAction = {
     type: ActionTypes.PublicUserActionTypes.set_publicuserdata,
     value,
   }

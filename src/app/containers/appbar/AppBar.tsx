@@ -36,6 +36,12 @@ export const AppBar: React.FC = () => {
     },
     [dispatch]
   )
+  const handleEnter = (
+    e: React.BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>
+  ) => {
+    e.preventDefault()
+    debouncedHandle(e.target[0].value)
+  }
   const debouncedHandle = useMemo(
     () => debounce(handleSearchText, 300),
     [handleSearchText]
@@ -61,60 +67,38 @@ export const AppBar: React.FC = () => {
     }
   }, [ref, dispatch, searchValue, authParam, debouncedHandle])
   const SearchedUserList = () => {
-    let arr = users.map((user) => (
+    let arr = users.map((user: SearchedUserState) => (
       <SearchRow
         key={user.id}
         username={user.username}
         avatarUrl={user.avatarUrl}
-        profileUrl={user.profileUrl}
-        onClickHandler={() =>
-          PublicUserService(user.username).then((result) => {
-            if (result) {
-              dispatch(setPublicUserData(result))
-              history.push(`/${user.username}`)
-            }
-          })
-        }
+        onClickHandler={() => findPublicUser(user.username)}
       />
     ))
     return arr
   }
+  const findPublicUser = (uname: string) =>
+    PublicUserService(uname).then((result) => {
+      if (result) {
+        dispatch(setPublicUserData(result))
+        history.push(`/${uname}`)
+      }
+    })
   return (
-    <div ref={ref}>
-      <Box sx={styles.root}>
-        <MuiAppBar sx={styles.content} position="static">
-          <form
-            onSubmit={(
-              e: React.BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>
-            ) => {
-              e.preventDefault()
-              debouncedHandle(e.target[0].value)
-            }}
-          >
-            <Search
-              handleSearchText={(value: string) => debouncedHandle(value)}
-            />
-          </form>
-          <Logout />
-        </MuiAppBar>
-      </Box>
-      {show ? (
-        <Container
-          sx={{
-            position: 'absolute',
-            width: '95ch',
-            zIndex: 4,
-            backgroundColor: 'white',
-            left: '160px',
-            border: '1px solid #2c974b',
-            borderTop: 'none',
-          }}
-        >
-          {SearchedUserList()}
-        </Container>
-      ) : (
-        <></>
-      )}
-    </div>
+    <Box ref={ref} sx={styles.root}>
+      <MuiAppBar sx={styles.content} position="relative">
+        <form onSubmit={handleEnter}>
+          <Search
+            handleSearchText={(value: string) => debouncedHandle(value)}
+          />
+        </form>
+        <Logout />
+        {show ? (
+          <Container sx={styles.searchList}>{SearchedUserList()}</Container>
+        ) : (
+          <></>
+        )}
+      </MuiAppBar>
+    </Box>
   )
 }

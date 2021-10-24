@@ -1,6 +1,6 @@
-import { StyleProps } from './type'
+import { AppBarProps } from './type'
 
-const styles: StyleProps = {
+const styles: AppBarProps = {
   root: {
     backgroundColor: 'primary.main',
   },
@@ -12,6 +12,14 @@ const styles: StyleProps = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 1,
+  },
+  searchList: {
+    position: 'absolute',
+    width: '95ch',
+    zIndex: 4,
+    top: '55px',
+    backgroundColor: 'white',
+    boxShadow: '2px 10px 6px -6px #777',
   },
 }
 export default styles

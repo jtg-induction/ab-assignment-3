@@ -1,5 +1,4 @@
 import { SxProps, Theme } from '@mui/system'
-
 const styles: {
   root: SxProps<Theme>
   item: any
@@ -19,8 +18,10 @@ const styles: {
     justifyContent: 'flex-start',
     gap: '20px',
     textDecoration: 'none',
-    color: '#85144b',
     cursor: 'pointer',
+    '&:hover': {
+      color: 'white',
+    },
   },
   profilePic: {
     height: '3rem',

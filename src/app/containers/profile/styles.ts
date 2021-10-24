@@ -14,12 +14,7 @@ const styles: StyleProps = {
     margin: '0 auto',
     mt: 10,
   },
-  backButton: {
-    margin: '0 auto',
-    position: 'relative',
-    left: '400px',
-    top: '100px',
-  },
+  backButton: {},
   profilePic: {
     height: theme.typography.pxToRem(96),
     width: theme.typography.pxToRem(96),

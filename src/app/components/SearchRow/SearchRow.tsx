@@ -4,7 +4,7 @@ import { SearchRowProps } from './type'
 import styles from './styles'
 
 export const SearchRow: React.FC<SearchRowProps> = (props) => {
-  const { username, avatarUrl, onClickHandler, profileUrl } = props
+  const { username, avatarUrl, onClickHandler } = props
   return (
     <Box sx={styles.root}>
       <Link sx={styles.item} onClick={onClickHandler}>

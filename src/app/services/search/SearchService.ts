@@ -9,8 +9,10 @@ const SearchService: SearchServiceType = async (query, authParam) => {
 
   return axios
     .get(API.SEARCH_QUERY_URL, {
-      params: {
+      headers: {
         accept: 'application/vnd.github.v3+json',
+      },
+      params: {
         per_page: API.MAX_SEARCH_RESPONSE,
         q: query,
       },
