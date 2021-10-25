@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Box, Typography } from '@mui/material'
 import { SuggestionService } from '@App/services/suggestions'
 import { setIsFollowedSugg, setSuggestions } from '@App/store/suggestions'
@@ -54,15 +56,23 @@ export const Suggestions = () => {
     FollowService(uname, authParam).then((result) => {
       if (result && result.status === 204) {
         dispatch(setIsFollowedSugg(i, true))
+        notify()
         // dispatch(setPublicUserData(result))
         // history.push(`/${uname}`)
       }
     })
 
+  const notify = () => toast('User Followed!')
+
   return (
     <Box sx={styles.root}>
       <Typography variant="h4">Who to Follow?</Typography>
       <Box>{suggestionsList()}</Box>
+      <ToastContainer
+        position="bottom-right"
+        hideProgressBar={true}
+        theme="dark"
+      />
     </Box>
   )
 }
