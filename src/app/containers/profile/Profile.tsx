@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { AnyAction, Dispatch } from 'redux'
 import {
   Avatar,
   Box,
@@ -11,6 +14,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material'
+import HowToRegIcon from '@mui/icons-material/HowToReg'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { ReactComponent as IconLocation } from '@Images/icon-location.svg'
 import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
@@ -19,10 +23,21 @@ import { Button } from '@App/components'
 import { AppRoute } from '@Constants/index'
 import { GeneralUserState } from './type'
 import styles from './styles'
+import FollowService from '@App/services/follow'
+import { setIsFollowed } from '@App/store/publicuser'
 
 export const Profile: React.FC = () => {
+  const dispatch: Dispatch<AnyAction> = useDispatch()
   const privateUser = useSelector((state: IAppState) => state.user)
   const publicUser = useSelector((state: IAppState) => state.publicuser)
+  const { username, password } = useSelector(
+    (state: IAppState) => state.login,
+    shallowEqual
+  )
+  const authParam = useMemo(
+    () => ({ username, password }),
+    [username, password]
+  )
   const [userData, setUserdata] = useState<GeneralUserState>({
     username: '',
     avatarUrl: '',
@@ -46,6 +61,13 @@ export const Profile: React.FC = () => {
     }
     isPrivate ? setUserdata(privateUser) : setUserdata(publicUser)
   }, [isPrivate, currentPath, privateUser, publicUser, history, pathToHome])
+
+  const followUser = () =>
+    FollowService(userData.username, authParam).then((result) => {
+      if (result && result.status === 204) {
+        dispatch(setIsFollowed(true))
+      }
+    })
   return (
     <Box
       sx={Object.assign(isPrivate ? {} : styles.publicProfileRoot, styles.root)}
@@ -70,10 +92,16 @@ export const Profile: React.FC = () => {
       <Typography variant="caption" sx={styles.bio}>
         {currentPath === AppRoute.PrivateRoutes.Profile ? (
           userData.bio
-        ) : (
-          <Button variant="contained" color="primary">
+        ) : !userData.isFollowed ? (
+          <Button
+            variant="contained"
+            color="primary"
+            onClickHandler={followUser}
+          >
             Follow
           </Button>
+        ) : (
+          <HowToRegIcon />
         )}
       </Typography>
       <Box sx={styles.stats}>

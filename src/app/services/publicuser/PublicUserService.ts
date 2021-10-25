@@ -19,6 +19,7 @@ export const PublicUserService: PublicUserServiceType = async (
     .then((response: any) => {
       const data = response.data
       const user: PublicUserState = {
+        isFollowed: false,
         username: data.login,
         avatarUrl: data.avatar_url,
         followers: data.followers,

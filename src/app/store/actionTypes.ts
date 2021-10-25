@@ -14,9 +14,11 @@ enum SearchActionTypes {
 }
 enum PublicUserActionTypes {
   set_publicuserdata = 'SET_PUBLICUSERDATA',
+  set_isfollowed = 'SET_ISFOLLOWED',
 }
 enum SuggestionsActionTypes {
   set_suggestions = 'SET_SUGGESTIONS',
+  set_isfollowedsugg = 'SET_ISFOLLOWEDSUGG',
 }
 
 export const ActionTypes = {

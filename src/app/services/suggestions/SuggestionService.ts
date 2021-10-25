@@ -24,6 +24,7 @@ export const SuggestionService: SuggestionServiceType = async (authParam) => {
         cnt = 0
       data.forEach((user: any) => {
         people.push({
+          isFollowed: false,
           index: cnt++,
           id: user.id,
           username: user.login,

@@ -16,9 +16,6 @@ const styles: {
     gap: '20px',
     textDecoration: 'none',
     cursor: 'pointer',
-    '&:hover': {
-      // color: 'white',
-    },
   },
   profilePic: {
     height: '3rem',

@@ -4,4 +4,5 @@ export enum API {
   SEARCH_QUERY_URL = 'https://api.github.com/search/users',
   GET_USERS_URL = 'https://api.github.com/users',
   MAX_SUGGESTIONS_RESPONSE = 4,
+  FOLLOW_USER_URL = 'https://api.github.com/user/following',
 }

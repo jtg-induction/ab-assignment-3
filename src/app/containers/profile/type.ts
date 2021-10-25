@@ -13,6 +13,7 @@ export type StyleProps = {
   backButton: SxProps<Theme>
 }
 export type GeneralUserState = {
+  isFollowed?: boolean
   isLoggedIn?: boolean
   username: string
   avatarUrl: string

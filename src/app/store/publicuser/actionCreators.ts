@@ -6,3 +6,10 @@ export const setPublicUserData = (value: PublicUserState) => {
   }
   return action
 }
+export const setIsFollowed = (value: boolean) => {
+  const action: PublicUserAction = {
+    type: ActionTypes.PublicUserActionTypes.set_isfollowed,
+    value,
+  }
+  return action
+}

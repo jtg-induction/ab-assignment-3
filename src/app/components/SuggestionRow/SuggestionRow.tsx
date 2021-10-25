@@ -1,11 +1,15 @@
 import React from 'react'
-import { Box, Divider, Link, Typography } from '@mui/material'
+import { Box, Divider, IconButton, Link, Typography } from '@mui/material'
 import { Button } from '@App/components'
 import { SuggestionRowProps } from './type'
 import styles from './styles'
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
+import HowToRegIcon from '@mui/icons-material/HowToReg'
+import { useSelector } from 'react-redux'
 
 export const SuggestionRow: React.FC<SuggestionRowProps> = (props) => {
-  const { username, avatarUrl, onClickHandler } = props
+  const { username, index, avatarUrl, onClickHandler } = props
+  const { users } = useSelector((state: IAppState) => state.suggestions)
   return (
     <Box sx={styles.root}>
       <Box
@@ -13,18 +17,18 @@ export const SuggestionRow: React.FC<SuggestionRowProps> = (props) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '20px',
+          gap: '40px',
         }}
       >
-        <Link sx={styles.item} onClick={onClickHandler}>
+        <Link sx={styles.item}>
           <Box sx={styles.profilePic}>
             <img src={avatarUrl} alt="profile pic" />
           </Box>
           <Typography sx={styles.username}>{username}</Typography>
         </Link>
-        <Button size="small" color="secondary" variant="outlined">
-          Follow
-        </Button>
+        <IconButton onClick={onClickHandler}>
+          {users[index].isFollowed ? <HowToRegIcon /> : <PersonAddAlt1Icon />}
+        </IconButton>
       </Box>
       <Divider></Divider>
     </Box>

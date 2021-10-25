@@ -6,3 +6,11 @@ export const setSuggestions = (value: SuggestionUserState[]) => {
   }
   return action
 }
+export const setIsFollowedSugg = (index: number, value: boolean) => {
+  const action: SuggestionsAction = {
+    type: ActionTypes.SuggestionsActionTypes.set_isfollowedsugg,
+    value,
+    index,
+  }
+  return action
+}

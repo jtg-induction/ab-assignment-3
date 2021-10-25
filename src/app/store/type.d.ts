@@ -23,6 +23,7 @@ type UserState = {
   following: number
 }
 type PublicUserState = {
+  isFollowed: boolean
   username: string
   avatarUrl: string
   bio: string
@@ -43,6 +44,7 @@ type SearchState = {
   users: SearchedUserState[]
 }
 type SuggestionUserState = {
+  isFollowed: boolean
   index: number
   id: number
   username: string
@@ -66,9 +68,11 @@ type SearchAction = {
 type PublicUserAction = {
   type: string
   value: any
+  index?: number
 }
 type SuggestionsAction = {
   type: string
   value: any
+  index?: number
 }
 type DispatchType = (args: LoginAction) => LoginAction

@@ -1,6 +1,7 @@
 import { ActionTypes } from '@App/store/actionTypes'
 
 const initialState: PublicUserState = {
+  isFollowed: false,
   username: '',
   avatarUrl: '',
   followers: 0,
@@ -18,6 +19,9 @@ const reducer = (
   switch (action.type) {
     case ActionTypes.PublicUserActionTypes.set_publicuserdata: {
       return action.value
+    }
+    case ActionTypes.PublicUserActionTypes.set_isfollowed: {
+      return { ...state, isFollowed: action.value }
     }
   }
   return state
