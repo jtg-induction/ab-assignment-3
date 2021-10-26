@@ -1,16 +1,15 @@
 import * as React from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { AnyAction, Dispatch } from 'redux'
 import { AppBar as MuiAppBar, Box, Container } from '@mui/material'
 import debounce from 'lodash.debounce'
 
-import { Search, SearchRow } from '@Components/index'
+import { Search, SearchRow, Button } from '@Components/index'
 import { Logout } from '@Containers/index'
 import SearchService from '@Services/search'
-import { PublicUserService } from '@App/services/publicuser'
-import { setPublicUserData } from '@App/store/publicuser'
+import { AppRoute } from '@Src/constants'
 import { setSearchData, setShowStatus } from '@App/store/search'
 import styles from './styles'
 
@@ -56,7 +55,7 @@ export const AppBar: React.FC = () => {
         dispatch(setShowStatus(false))
       }
     }
-    SearchService(searchValue, authParam).then((result) => {
+    SearchService(searchValue, authParam, 7).then((result) => {
       if (result) {
         dispatch(setSearchData(result))
       } else {
@@ -79,24 +78,35 @@ export const AppBar: React.FC = () => {
     ))
     return arr
   }
-  const findPublicUser = (uname: string) =>
-    PublicUserService(uname, authParam).then((result) => {
-      if (result) {
-        dispatch(setPublicUserData(result))
-        history.push(`/${uname}`)
-      }
-    })
+  const findPublicUser = (uname: string) => history.push(`/${uname}`)
+
   return (
-    <Box ref={ref} sx={styles.root}>
+    <Box sx={styles.root}>
       <MuiAppBar sx={styles.content} position="relative">
-        <form onSubmit={handleEnter}>
-          <Search
-            handleSearchText={(value: string) => debouncedHandle(value)}
-          />
+        <form style={{ display: 'flex', gap: 5 }} onSubmit={handleEnter}>
+          <div ref={ref}>
+            <Search
+              handleSearchText={(value: string) => debouncedHandle(value)}
+            />
+            {show ? (
+              <Container sx={styles.searchList}>{SearchedUserList()}</Container>
+            ) : (
+              <></>
+            )}
+          </div>
+          <Button
+            disabled={searchValue === '' ? true : false}
+            onClickHandler={() =>
+              history.push(AppRoute.PublicRoutes.Search + '/' + searchValue)
+            }
+            variant="contained"
+            color="info"
+          >
+            Search
+          </Button>
         </form>
-        <Logout />
-        {show ? (
-          <Container sx={styles.searchList}>{SearchedUserList()}</Container>
+        {useLocation().pathname === AppRoute.PrivateRoutes.Profile ? (
+          <Logout />
         ) : (
           <React.Fragment />
         )}

@@ -5,6 +5,8 @@ const initialState: LoginState = {
   password: '',
   isError: false,
   helperText: '',
+  isLoading: false,
+  isLoggedIn: false,
 }
 
 const reducer = (
@@ -30,8 +32,17 @@ const reducer = (
     case ActionTypes.LoginActionTypes.set_iserror:
       return {
         ...state,
-        username: action.value,
+        isError: action.value,
       }
+    case ActionTypes.LoginActionTypes.set_isloading:
+      return {
+        ...state,
+        isLoading: action.value,
+      }
+    case ActionTypes.LoginActionTypes.set_isloggedin: {
+      let obj = { ...state, isLoggedIn: action.value }
+      return obj
+    }
   }
   return state
 }

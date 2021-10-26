@@ -3,5 +3,6 @@ export interface SuggestionRowProps {
   index: number
   username: string
   avatarUrl: string
-  onClickHandler: any
+  followUserHandler: any
+  seeUserHandler: any
 }

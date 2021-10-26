@@ -15,4 +15,5 @@ export interface ButtonProps {
   variant: 'text' | 'outlined' | 'contained'
   size?: 'medium' | 'large' | 'small'
   sx?: SxProps<Theme>
+  disabled?: boolean
 }

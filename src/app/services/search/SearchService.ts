@@ -2,7 +2,7 @@ import axios from 'axios'
 import { API } from '@Constants/api'
 import { SearchServiceType } from './type'
 
-const SearchService: SearchServiceType = async (query, authParam) => {
+const SearchService: SearchServiceType = async (query, authParam, length) => {
   if (query.length === 0) {
     return false
   }
@@ -13,7 +13,7 @@ const SearchService: SearchServiceType = async (query, authParam) => {
         accept: 'application/vnd.github.v3+json',
       },
       params: {
-        per_page: API.MAX_SEARCH_RESPONSE,
+        per_page: length,
         q: query,
       },
       auth: {

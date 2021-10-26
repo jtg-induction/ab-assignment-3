@@ -1,9 +1,17 @@
 import { useHistory } from 'react-router'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { TextField, Button } from '@Components/index'
 import { AppRoute } from '@Constants/index'
-import { setHelperText, setPassword, setUsername } from '@Store/login'
+import {
+  setHelperText,
+  setIsLoading,
+  setIsLoggedIn,
+  setPassword,
+  setUsername,
+} from '@Store/login'
 import { setUserData } from '@Store/user'
 import { LoginService } from '@Services/login'
 import { ReactComponent as Logo } from '@Images/Github-logo.svg'
@@ -15,10 +23,11 @@ import {
   Avatar,
 } from '@mui/material'
 import styles from './styles'
+import { useEffect } from 'react'
 
 export const Login: React.FC = () => {
   const dispatch: Dispatch<AnyAction> = useDispatch()
-  const { username, helperText } = useSelector(
+  const { username, helperText, isLoading } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
@@ -31,27 +40,31 @@ export const Login: React.FC = () => {
     if (notValid(formUsername) || notValid(formPassword)) {
       dispatch(setHelperText('Please fill all the fields'))
     } else {
-      dispatch(setHelperText(''))
-      LoginService(formUsername, formPassword).then((result) => {
-        if (!result) {
-          history.push('/error')
-        } else {
-          if (result.isLoggedIn) {
-            console.log(result)
-            dispatch(setUsername('' + formUsername))
-            dispatch(setPassword('' + formPassword))
-
-            dispatch(setUserData(result))
-            history.push(AppRoute.PrivateRoutes.Profile)
-          } else {
-            dispatch(setHelperText('Wrong username or password'))
-          }
+      dispatch(setIsLoading(true))
+      LoginService(formUsername, formPassword).then((message) => {
+        dispatch(setIsLoading(false))
+        if (message === 'error') history.push('/error')
+        else if (message === 'fail')
+          dispatch(setHelperText('Wrong username or token'))
+        else {
+          dispatch(setUsername('' + formUsername))
+          dispatch(setPassword('' + formPassword))
+          dispatch(setIsLoggedIn(true))
+          dispatch(setHelperText('Successfully logged in!'))
         }
       })
     }
   }
   const notValid = (entry: FormDataEntryValue | null) =>
     entry == null || entry === ''
+
+  useEffect(() => {
+    if (helperText !== '') {
+      toast(helperText)
+      dispatch(setHelperText(''))
+    }
+  }, [helperText, dispatch])
+
   return (
     <Container maxWidth="md" sx={styles.content}>
       <Box>
@@ -75,7 +88,7 @@ export const Login: React.FC = () => {
         <TextField
           name="password"
           margin="normal"
-          label="Password"
+          label="Token"
           type="password"
           fullWidth
         />
@@ -86,9 +99,16 @@ export const Login: React.FC = () => {
           color="primary"
           children="Sign In"
           sx={styles.submitButton}
+          disabled={isLoading}
           fullWidth
         />
       </Box>
+      <ToastContainer
+        position="bottom-right"
+        hideProgressBar={true}
+        autoClose={5000}
+        theme="dark"
+      />
     </Container>
   )
 }

@@ -2,11 +2,11 @@ import { StyleProps } from './type'
 
 const styles: StyleProps = {
   content: {
-    maxWidth: '1000px',
-    margin: '0 auto',
     minHeight: '60vh',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    mt: 7,
+    gap: '50px',
     padding: '10px',
   },
 }

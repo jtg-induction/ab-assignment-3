@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { API } from '@Constants/index'
-import { PublicUserServiceType } from './type'
+import { UserServiceType } from './type'
 
-export const PublicUserService: PublicUserServiceType = async (
+export const UserService: UserServiceType = async (
   username,
-  authParam
+  authParam,
+  isFollowed
 ) => {
+  // console.log(isFollowed)
   return axios
     .get(`${API.GET_USERS_URL}/${username}`, {
       headers: {
@@ -18,8 +20,8 @@ export const PublicUserService: PublicUserServiceType = async (
     })
     .then((response: any) => {
       const data = response.data
-      const user: PublicUserState = {
-        isFollowed: false,
+      const user: UserState = {
+        isFollowed: isFollowed,
         username: data.login,
         avatarUrl: data.avatar_url,
         followers: data.followers,

@@ -27,11 +27,17 @@ export const setIsError = (value: boolean) => {
   }
   return action
 }
-
-//   export function simulateHttpRequest(action: LoginAction) {
-//     return (dispatch: DispatchType) => {
-//       setTimeout(() => {
-//         dispatch(action)
-//       }, 500)
-//     }
-//   }
+export const setIsLoading = (value: boolean) => {
+  const action: LoginAction = {
+    type: ActionTypes.LoginActionTypes.set_isloading,
+    value,
+  }
+  return action
+}
+export const setIsLoggedIn = (value: boolean) => {
+  const action: LoginAction = {
+    type: ActionTypes.LoginActionTypes.set_isloggedin,
+    value,
+  }
+  return action
+}

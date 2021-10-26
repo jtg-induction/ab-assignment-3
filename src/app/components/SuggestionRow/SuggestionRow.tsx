@@ -8,7 +8,8 @@ import HowToRegIcon from '@mui/icons-material/HowToReg'
 import { useSelector } from 'react-redux'
 
 export const SuggestionRow: React.FC<SuggestionRowProps> = (props) => {
-  const { username, index, avatarUrl, onClickHandler } = props
+  const { username, index, avatarUrl, followUserHandler, seeUserHandler } =
+    props
   const { users } = useSelector((state: IAppState) => state.suggestions)
   return (
     <Box sx={styles.root}>
@@ -20,13 +21,16 @@ export const SuggestionRow: React.FC<SuggestionRowProps> = (props) => {
           gap: '40px',
         }}
       >
-        <Link sx={styles.item}>
+        <Link sx={styles.item} onClick={seeUserHandler}>
           <Box sx={styles.profilePic}>
             <img src={avatarUrl} alt="profile pic" />
           </Box>
           <Typography sx={styles.username}>{username}</Typography>
         </Link>
-        <IconButton onClick={onClickHandler}>
+        <IconButton
+          disabled={users[index].isFollowed}
+          onClick={followUserHandler}
+        >
           {users[index].isFollowed ? <HowToRegIcon /> : <PersonAddAlt1Icon />}
         </IconButton>
       </Box>

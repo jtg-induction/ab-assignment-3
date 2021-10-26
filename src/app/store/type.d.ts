@@ -1,8 +1,7 @@
 interface IAppState {
   login: LoginState
-  user: UserState
   search: SearchState
-  publicuser: PublicUserState
+  user: UserState
   suggestions: SuggestionsState
 }
 type LoginState = {
@@ -10,20 +9,11 @@ type LoginState = {
   password: string
   isError: boolean
   helperText: string
+  isLoading: boolean
+  isLoggedIn: boolean
 }
 type UserState = {
-  isLoggedIn: boolean
-  username: string
-  avatarUrl: string
-  bio: string
-  email: string
-  htmlUrl: string
-  location: string
-  followers: number
-  following: number
-}
-type PublicUserState = {
-  isFollowed: boolean
+  isFollowed?: boolean
   username: string
   avatarUrl: string
   bio: string
@@ -57,18 +47,13 @@ type LoginAction = {
   type: string
   value: any
 }
-type UserAction = {
-  type: string
-  value: any
-}
 type SearchAction = {
   type: string
   value: any
 }
-type PublicUserAction = {
+type UserAction = {
   type: string
   value: any
-  index?: number
 }
 type SuggestionsAction = {
   type: string

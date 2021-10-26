@@ -9,8 +9,6 @@ export type StyleProps = {
   svg: SxProps<Theme>
   profileButton: SxProps<Theme>
   line: SxProps<Theme>
-  publicProfileRoot: SxProps<Theme>
-  backButton: SxProps<Theme>
 }
 export type GeneralUserState = {
   isFollowed?: boolean
@@ -23,4 +21,8 @@ export type GeneralUserState = {
   location: string
   followers: number
   following: number
+}
+export type ProfileProps = {
+  isPrivate: boolean
+  uname: string
 }

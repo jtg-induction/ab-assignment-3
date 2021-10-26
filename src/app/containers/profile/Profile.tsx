@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useHistory, useLocation } from 'react-router'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
+import { useParams } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router'
 import {
   Avatar,
   Box,
@@ -21,15 +20,22 @@ import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
 import { Button } from '@App/components'
 import { AppRoute } from '@Constants/index'
-import { GeneralUserState } from './type'
-import styles from './styles'
 import FollowService from '@App/services/follow'
-import { setIsFollowed } from '@App/store/publicuser'
+import { setIsFollowed } from '@App/store/user'
+import { UserService } from '@App/services/user'
+import { setUserData } from '@Store/user'
+import { setHelperText } from '@App/store/login'
+import { ProfileProps } from './type'
+import styles from './styles'
 
-export const Profile: React.FC = () => {
+export const Profile: React.FC<ProfileProps> = (props) => {
+  const { uname, isPrivate } = props
+  const { isFollowed } = useParams<{ isFollowed?: string }>()
+  // console.log(isFollowed)
+  const isUserFollowed = isFollowed === 'true' ? true : false
+
   const dispatch: Dispatch<AnyAction> = useDispatch()
-  const privateUser = useSelector((state: IAppState) => state.user)
-  const publicUser = useSelector((state: IAppState) => state.publicuser)
+  const userData = useSelector((state: IAppState) => state.user)
   const { username, password } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
@@ -38,65 +44,41 @@ export const Profile: React.FC = () => {
     () => ({ username, password }),
     [username, password]
   )
-  const [userData, setUserdata] = useState<GeneralUserState>({
-    username: '',
-    avatarUrl: '',
-    bio: '',
-    email: '',
-    htmlUrl: '',
-    location: '',
-    followers: 0,
-    following: 0,
-  })
   const history = useHistory()
-  const currentPath = useLocation().pathname
-  const isPrivate = currentPath === AppRoute.PrivateRoutes.Profile
   const pathToHome = AppRoute.PrivateRoutes.Profile
   useEffect(() => {
-    if (
-      currentPath !== `/${publicUser.username}` &&
-      currentPath !== pathToHome
-    ) {
-      history.push(pathToHome)
-    }
-    isPrivate ? setUserdata(privateUser) : setUserdata(publicUser)
-  }, [isPrivate, currentPath, privateUser, publicUser, history, pathToHome])
+    UserService(uname, authParam, isUserFollowed).then((result) => {
+      if (result) {
+        dispatch(setUserData(result))
+      } else {
+        history.push(AppRoute.PrivateRoutes.Profile)
+        dispatch(setHelperText('User not Found'))
+      }
+    })
+  }, [uname, authParam, dispatch, history, isUserFollowed])
 
   const followUser = () =>
     FollowService(userData.username, authParam).then((result) => {
       if (result && result.status === 204) {
         dispatch(setIsFollowed(true))
+        dispatch(setHelperText('User followed!'))
       }
     })
   return (
-    <Box
-      sx={Object.assign(isPrivate ? {} : styles.publicProfileRoot, styles.root)}
-    >
-      {!isPrivate ? (
-        <Button
-          sx={styles.backButton}
-          variant="contained"
-          color="warning"
-          onClickHandler={(e) => history.push('/')}
-        >
-          <ArrowBackIcon />
-          <span>Back</span>
-        </Button>
-      ) : (
-        <></>
-      )}
+    <Box sx={styles.root}>
       <Avatar sx={styles.profilePic}>
         <img src={userData.avatarUrl} alt={userData.username} />
       </Avatar>
       <Typography variant="h6">{userData.username}</Typography>
       <Typography variant="caption" sx={styles.bio}>
-        {currentPath === AppRoute.PrivateRoutes.Profile ? (
+        {isPrivate ? (
           userData.bio
         ) : !userData.isFollowed ? (
           <Button
             variant="contained"
             color="primary"
             onClickHandler={followUser}
+            disabled={userData.isFollowed}
           >
             Follow
           </Button>

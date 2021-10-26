@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { Box, Typography } from '@mui/material'
 import { SuggestionService } from '@App/services/suggestions'
 import { setIsFollowedSugg, setSuggestions } from '@App/store/suggestions'
 import styles from './styles'
 import { Button, SuggestionRow } from '@App/components'
 import FollowService from '@App/services/follow'
-import { setPublicUserData } from '@App/store/publicuser'
+import { setUserData } from '@App/store/user'
 import { useHistory } from 'react-router'
+import { setHelperText } from '@App/store/login'
 
 export const Suggestions = () => {
   const history = useHistory()
@@ -29,15 +28,16 @@ export const Suggestions = () => {
     [username, password]
   )
   useEffect(() => {
-    SuggestionService(authParam).then((result) => {
-      if (result) {
-        dispatch(setSuggestions(result))
-        // console.log(result)
-      } else {
-        // console.log(result)
-      }
-    })
-  }, [authParam])
+    if (users.length === 0)
+      SuggestionService(authParam).then((result) => {
+        if (result) {
+          dispatch(setSuggestions(result))
+          // console.log(result)
+        } else {
+          // console.log(result)
+        }
+      })
+  }, [authParam, dispatch, users.length])
 
   const suggestionsList = () => {
     let arr = users.map((user: SuggestionUserState) => (
@@ -46,7 +46,8 @@ export const Suggestions = () => {
         index={user.index}
         username={user.username}
         avatarUrl={user.avatarUrl}
-        onClickHandler={() => followUser(user.username, user.index)}
+        followUserHandler={() => followUser(user.username, user.index)}
+        seeUserHandler={() => seeUser(user.username, user.isFollowed)}
       />
     ))
     return arr
@@ -56,23 +57,17 @@ export const Suggestions = () => {
     FollowService(uname, authParam).then((result) => {
       if (result && result.status === 204) {
         dispatch(setIsFollowedSugg(i, true))
-        notify()
-        // dispatch(setPublicUserData(result))
-        // history.push(`/${uname}`)
+        dispatch(setHelperText('User followed!'))
       }
     })
 
-  const notify = () => toast('User Followed!')
+  const seeUser = (uname: string, isFollowed: boolean) =>
+    history.push(`/${uname}/${isFollowed}`)
 
   return (
     <Box sx={styles.root}>
       <Typography variant="h4">Who to Follow?</Typography>
       <Box>{suggestionsList()}</Box>
-      <ToastContainer
-        position="bottom-right"
-        hideProgressBar={true}
-        theme="dark"
-      />
     </Box>
   )
 }

@@ -1,14 +1,14 @@
 import { ActionTypes } from '@App/store/actionTypes'
-export const setIsLoggedIn = (value: boolean) => {
-  const action: LoginAction = {
-    type: ActionTypes.UserActionTypes.set_isloggedin,
+export const setUserData = (value: UserState) => {
+  const action: UserAction = {
+    type: ActionTypes.UserActionTypes.set_userdata,
     value,
   }
   return action
 }
-export const setUserData = (value: UserState) => {
-  const action: LoginAction = {
-    type: ActionTypes.UserActionTypes.set_userdata,
+export const setIsFollowed = (value: boolean) => {
+  const action: UserAction = {
+    type: ActionTypes.UserActionTypes.set_isfollowed,
     value,
   }
   return action
