@@ -1,22 +1,23 @@
 import { SxProps, Theme } from '@mui/system'
+import theme from '@Src/theme'
 const styles: {
   root: SxProps<Theme>
-  item: any
+  item: SxProps<Theme>
   profilePic: SxProps<Theme>
   username: SxProps<Theme>
 } = {
   root: {
     '&:hover': {
       backgroundColor: 'primary.main',
-      borderRadius: '10px',
+      borderRadius: theme.typography.pxToRem(10),
     },
   },
   item: {
-    padding: '10px',
+    padding: theme.typography.pxToRem(10),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    gap: '20px',
+    gap: theme.typography.pxToRem(20),
     textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {
@@ -33,7 +34,7 @@ const styles: {
     },
   },
   username: {
-    fontSize: '15px',
+    fontSize: theme.typography.pxToRem(15),
   },
 }
 export default styles

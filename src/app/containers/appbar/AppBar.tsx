@@ -1,17 +1,18 @@
 import * as React from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { AnyAction, Dispatch } from 'redux'
 import { AppBar as MuiAppBar, Box, Container } from '@mui/material'
+import debounce from 'lodash.debounce'
+
 import { Search, SearchRow } from '@Components/index'
 import { Logout } from '@Containers/index'
-import styles from './styles'
 import SearchService from '@Services/search'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { setSearchData, setShowStatus } from '@App/store/search'
-import debounce from 'lodash.debounce'
 import { PublicUserService } from '@App/services/publicuser'
 import { setPublicUserData } from '@App/store/publicuser'
-import { useHistory } from 'react-router'
+import { setSearchData, setShowStatus } from '@App/store/search'
+import styles from './styles'
 
 export const AppBar: React.FC = () => {
   const history = useHistory()

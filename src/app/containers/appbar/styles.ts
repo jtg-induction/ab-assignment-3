@@ -1,11 +1,12 @@
 import { AppBarProps } from './type'
+import theme from '@Src/theme'
 
 const styles: AppBarProps = {
   root: {
     backgroundColor: 'primary.main',
   },
   content: {
-    maxWidth: '1000px',
+    maxWidth: theme.typography.pxToRem(1000),
     margin: '0 auto',
     boxShadow: 'none',
     display: 'flex',
@@ -15,11 +16,11 @@ const styles: AppBarProps = {
   },
   searchList: {
     position: 'absolute',
-    width: '95ch',
+    width: theme.typography.pxToRem(850),
     zIndex: 4,
-    top: '55px',
-    backgroundColor: 'white',
-    boxShadow: '2px 10px 6px -6px #777',
+    top: theme.typography.pxToRem(60),
+    backgroundColor: theme.colors.white.main,
+    boxShadow: theme.shadows[5],
   },
 }
 export default styles

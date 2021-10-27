@@ -1,8 +1,8 @@
+import React from 'react'
+import { Box, Container } from '@mui/material'
 import { Suggestions } from '@Containers/suggestions'
 import { Profile, AppBar } from '@Containers/index'
-import { Box, Container } from '@mui/material'
 import styles from './styles'
-import React from 'react'
 
 export const ProfilePage = () => {
   return (
