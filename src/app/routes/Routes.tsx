@@ -1,26 +1,29 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Button } from '@Components/Button'
-import { User } from '@Components/User'
-import * as path from '@Constants/routesPath'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Login, Profile } from '@Containers/index'
+import { AppRoute } from '@Constants/index'
+import { PageNotFound } from '@App/pages/404'
 import GuardedRoute from './GuardedRoutes'
 
 export const Routes: React.FC = () => {
+  const { isLoggedIn } = useSelector((state: IAppState) => state.user)
   return (
     <Router>
-      <Route path={path.Home} exact>
-        <Button />
-        <User />
-      </Route>
-      <Route path={path.Profile} exact>
-        ProfilePage
-      </Route>
-      <Route path={path.Search} exact>
-        SearchBar
-      </Route>
-      <Route path={path.Suggestions} exact>
-        Suggestions
-      </Route>
-      <GuardedRoute path={path.Profile} component={User} auth={false} />
+      <Switch>
+        <GuardedRoute
+          auth={!isLoggedIn}
+          path={AppRoute.PublicRoutes.SignIn}
+          Component={Login}
+          pathTo={AppRoute.PrivateRoutes.Profile}
+        />
+        <GuardedRoute
+          auth={isLoggedIn}
+          Component={Profile}
+          path={AppRoute.PrivateRoutes.Profile}
+          pathTo={AppRoute.PublicRoutes.SignIn}
+        />
+        <Route component={PageNotFound} />
+      </Switch>
     </Router>
   )
 }

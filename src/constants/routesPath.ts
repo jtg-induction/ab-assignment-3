@@ -1,5 +1,6 @@
-export const Home = '/'
-export const SignIn = '/login'
-export const Profile = '/profile'
-export const Search = '/search'
-export const Suggestions = '/suggestions'
+export enum PublicRoutes {
+  SignIn = '/login',
+}
+export enum PrivateRoutes {
+  Profile = '/',
+}
