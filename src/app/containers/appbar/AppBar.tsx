@@ -9,7 +9,7 @@ import debounce from 'lodash.debounce'
 import { Search, SearchRow, Button, MyLoader } from '@Components/index'
 import { Logout } from '@Containers/index'
 import SearchService from '@Services/search'
-import { AppRoute } from '@Src/constants'
+import { AppRoute, RESPONSECOUNT } from '@Src/constants'
 import { setIsSearching, setSearchData, setShowStatus } from '@App/store/search'
 import styles from './styles'
 
@@ -57,7 +57,11 @@ export const AppBar: React.FC = () => {
         dispatch(setShowStatus(false))
       }
     }
-    SearchService(searchValue, authParam, 7).then((result) => {
+    SearchService(
+      searchValue,
+      authParam,
+      RESPONSECOUNT.MAX_SEARCH_RESPONSE_1
+    ).then((result) => {
       dispatch(setIsSearching(false))
       if (result) {
         dispatch(setSearchData(result))
@@ -122,7 +126,7 @@ export const AppBar: React.FC = () => {
             onClickHandler={() => history.push(AppRoute.PrivateRoutes.Profile)}
             size="medium"
           >
-            Back
+            Back to home
           </Button>
         )}
       </MuiAppBar>

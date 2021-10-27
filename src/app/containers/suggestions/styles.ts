@@ -7,8 +7,8 @@ const styles: StyleProps = {
     justifyContent: 'space-around',
     alignItems: 'center',
     boxShadow: theme.shadows[24],
-    padding: '20px',
-    width: '400px',
+    padding: theme.typography.pxToRem(20),
+    width: theme.typography.pxToRem(400),
   },
   line: {
     backgroundColor: theme.palette.divider,

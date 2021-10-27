@@ -1,8 +1,4 @@
-import { Route, Redirect, Switch } from 'react-router-dom'
-import { PageNotFound, ProfilePage } from '@Pages/index'
-import { Profile } from '@App/containers'
-import { AppRoute } from '@Constants/index'
-import { SearchPage } from '@App/pages/searchPage'
+import { Route, Redirect } from 'react-router-dom'
 
 type PropsI = {
   auth: boolean

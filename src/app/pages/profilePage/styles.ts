@@ -1,13 +1,13 @@
 import { StyleProps } from './type'
+import theme from '@Src/theme'
 
 const styles: StyleProps = {
   content: {
-    minHeight: '60vh',
     display: 'flex',
     justifyContent: 'center',
     mt: 7,
-    gap: '50px',
-    padding: '10px',
+    gap: theme.typography.pxToRem(50),
+    padding: theme.typography.pxToRem(10),
   },
 }
 export default styles

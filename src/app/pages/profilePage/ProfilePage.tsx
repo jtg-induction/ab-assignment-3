@@ -50,12 +50,12 @@ export const ProfilePage = () => {
       <Box sx={styles.content}>
         <Profile uname={usernameForProfile} isPrivate={isPrivate} />
         {isPrivate ? <Suggestions /> : ''}
-        <ToastContainer
-          position="bottom-right"
-          hideProgressBar={true}
-          theme="dark"
-        />
       </Box>
+      <ToastContainer
+        position="bottom-right"
+        hideProgressBar={true}
+        theme="dark"
+      />
     </React.Fragment>
   )
 }

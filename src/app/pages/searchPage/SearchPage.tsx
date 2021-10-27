@@ -1,14 +1,11 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { Suggestions } from '@Containers/suggestions'
-import { Profile, AppBar } from '@Containers/index'
+import { AppBar } from '@Containers/index'
 import { Box, Container } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { setHelperText } from '@App/store/login'
 import { useHistory, useLocation } from 'react-router'
-import { AppRoute } from '@Constants/index'
+import { AppRoute, RESPONSECOUNT } from '@Constants/index'
 import { useParams } from 'react-router-dom'
 import SearchService from '@App/services/search'
 import { setIsSearching, setSearchData } from '@App/store/search'
@@ -23,7 +20,7 @@ export const SearchPage = () => {
     () => ({ username, password }),
     [username, password]
   )
-  const { users, show, isSearching } = useSelector(
+  const { users, isSearching } = useSelector(
     (state: IAppState) => state.search,
     shallowEqual
   )
@@ -32,18 +29,16 @@ export const SearchPage = () => {
   const history = useHistory()
 
   useEffect(() => {
-    SearchService(query, authParam, 30).then((result) => {
-      if (result) {
-        dispatch(setSearchData(result))
-      } else {
-        dispatch(setSearchData([]))
+    SearchService(query, authParam, RESPONSECOUNT.MAX_SEARCH_RESPONSE_2).then(
+      (result) => {
+        if (result) {
+          dispatch(setSearchData(result))
+        } else {
+          dispatch(setSearchData([]))
+        }
+        dispatch(setIsSearching(false))
       }
-      dispatch(setIsSearching(false))
-    })
-    if (helperText !== '') {
-      toast(helperText)
-      dispatch(setHelperText(''))
-    }
+    )
   }, [authParam, dispatch, helperText, query])
 
   const findPublicUser = (uname: string) => history.push(`/${uname}`)

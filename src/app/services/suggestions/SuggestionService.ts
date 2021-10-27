@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API } from '@Constants/index'
+import { API, RESPONSECOUNT } from '@Constants/index'
 import { SuggestionServiceType } from './type'
 
 export const SuggestionService: SuggestionServiceType = async (authParam) => {
@@ -11,7 +11,7 @@ export const SuggestionService: SuggestionServiceType = async (authParam) => {
       },
       params: {
         since: start,
-        per_page: API.MAX_SUGGESTIONS_RESPONSE,
+        per_page: RESPONSECOUNT.MAX_SUGGESTIONS_RESPONSE,
       },
       auth: {
         username: authParam.username,

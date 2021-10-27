@@ -20,7 +20,7 @@ const styles: AppBarProps = {
     zIndex: 4,
     top: '65px',
     backgroundColor: 'white',
-    boxShadow: '2px 10px 6px -6px #777',
+    boxShadow: theme.shadows[3],
   },
 }
 export default styles

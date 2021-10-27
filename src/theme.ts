@@ -40,6 +40,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: uiGreen,
+      light: 'rgba(29, 161, 242, 0.2)',
     },
     secondary: {
       main: uiRed,
@@ -50,6 +51,9 @@ const theme = createTheme({
     text: {
       primary: black,
       secondary: '#46505A',
+    },
+    info: {
+      main: '#993CF3',
     },
   },
   typography: {
