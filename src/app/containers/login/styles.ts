@@ -5,7 +5,7 @@ const styles: StyleProps = {
   content: {
     mt: 20,
     p: 3,
-    boxShadow: '0px 0px 30px 15px rgba(0, 0, 0, 0.2)',
+    boxShadow: theme.shadows[24],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',

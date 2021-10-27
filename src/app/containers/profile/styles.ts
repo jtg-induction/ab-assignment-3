@@ -6,7 +6,7 @@ const styles: StyleProps = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    boxShadow: '0 8px 40px -12px rgba(0, 0, 0, 0.3)',
+    boxShadow: theme.shadows[24],
     padding: theme.typography.pxToRem(20),
     width: theme.typography.pxToRem(400),
   },
@@ -15,10 +15,9 @@ const styles: StyleProps = {
     width: theme.typography.pxToRem(96),
     margin: theme.typography.pxToRem(10),
     img: {
-      zIndex: 4,
       objectFit: 'cover',
       borderRadius: '50%',
-      border: '2px solid white',
+      border: '2px solid ' + theme.palette.background.paper,
     },
   },
   stats: {
@@ -34,7 +33,6 @@ const styles: StyleProps = {
   bio: {
     fontSize: '0.7rem',
     mb: theme.typography.pxToRem(20),
-    // opacity: 0.6,
   },
 
   name: {

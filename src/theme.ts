@@ -10,11 +10,22 @@ declare module '@mui/material/styles' {
     status: {
       danger: string
     }
+    colors: {
+      white: {
+        preset1: string
+        preset2: string
+      }
+    }
   }
-  // allow configuration using `createTheme`
   interface ThemeOptions {
     status?: {
       danger?: string
+    }
+    colors?: {
+      white?: {
+        preset1?: string
+        preset2?: string
+      }
     }
   }
 }
@@ -39,5 +50,4 @@ const theme = createTheme({
     fontFamily: 'Roboto',
   },
 })
-console.log(theme)
 export default theme
