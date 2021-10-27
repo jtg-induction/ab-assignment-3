@@ -54,5 +54,10 @@ module.exports = {
         },
       },
     ],
+    'arrow-body-style': [
+      'error',
+      'never',
+      { requireReturnForObjectLiteral: true },
+    ],
   },
 }

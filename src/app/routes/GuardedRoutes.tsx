@@ -1,27 +1,27 @@
-import { PropsWithChildren, ReactElement } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { PageNotFound } from '@App/pages/404'
+import { Route, Redirect, Switch } from 'react-router-dom'
 
-interface P {}
 type PropsI = {
   auth: boolean
   path: string
-  component: (
-    props: PropsWithChildren<P>,
-    context?: any
-  ) => ReactElement<any, any> | null
+  pathTo: string
+  Component: React.FC
 }
 
-const GuardedRoute: React.FC<PropsI> = ({
-  component: Component,
-  auth,
-  ...rest
-}) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      auth === true ? <Component {...props} /> : <Redirect to="/" />
-    }
-  />
-)
+const GuardedRoute: React.FC<PropsI> = (props) => {
+  const { auth, pathTo, Component, ...rest } = props
+  return (
+    <Switch>
+      <Route
+        {...rest}
+        render={() =>
+          auth === true ? <Component /> : <Redirect to={pathTo} />
+        }
+        exact
+      />
+      <Route component={PageNotFound} />
+    </Switch>
+  )
+}
 
 export default GuardedRoute

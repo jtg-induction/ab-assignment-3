@@ -2,13 +2,18 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@Components/*": ["./src/app/components/*"],
       "@App/*": ["./src/app/*"],
+      "@Components/*": ["./src/app/components/*"],
+      "@Containers/*": ["./src/app/containers/*"],
       "@Constants/*": ["./src/constants/*"],
-      "@Styles/*": ["./src/styles/main.scss/*"],
+      "@Services/*": ["./src/app/services/*"],
+      "@Styles/*": ["./src/styles/*"],
       "@Routes/*": ["./src/app/routes/*"],
       "@Actions/*": ["./src/app/store/reducers/*"],
-      "@Store/*": ["./src/app/store/*"]
+      "@Store/*": ["./src/app/store/*"],
+      "@Images/*": ["./src/assets/images/*"],
+      "@Fonts/*": ["./src/assets/fonts/*"],
+      "@Src/*": ["./src/*"]
     }
   }
 }

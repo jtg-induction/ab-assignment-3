@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
-import { useAppDispatch } from '@App/hooks'
-import { changeName } from '@Actions/user'
-import './styles.scss'
-import './type.ts'
+import React from 'react'
+import { Button as MuiButton } from '@mui/material'
+import { ButtonProps } from './type'
+import styles from './styles'
 
-export const Button: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const [name, setName] = useState('')
+export const Button: React.FC<ButtonProps> = (props) => {
+  const { children, onClickHandler, ...rest } = props
   return (
-    <React.Fragment>
-      <input
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value)
-        }}
-      />
-      <button
-        onClick={() => {
-          dispatch(changeName({ name: name }))
-        }}
+    <>
+      <MuiButton
+        sx={styles.root}
+        onClick={(e) =>
+          onClickHandler === undefined ? null : onClickHandler(e)
+        }
+        {...rest}
       >
-        Add name to user
-      </button>
-    </React.Fragment>
+        {children}
+      </MuiButton>
+    </>
   )
+}
+Button.defaultProps = {
+  variant: 'contained',
+  type: 'button',
+  color: 'primary',
+  size: 'medium',
+  fullWidth: false,
 }
