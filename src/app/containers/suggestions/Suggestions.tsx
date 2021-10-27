@@ -72,7 +72,7 @@ export const Suggestions = () => {
   } else
     return (
       <Box sx={styles.root}>
-        <Typography variant="h4">Who to Follow?</Typography>
+        <Typography variant="h4">Whom to Follow?</Typography>
         <Box>{suggestionsList()}</Box>
       </Box>
     )

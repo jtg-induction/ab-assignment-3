@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import {
   Avatar,
   Box,
@@ -13,7 +13,6 @@ import {
   Typography,
 } from '@mui/material'
 import HowToRegIcon from '@mui/icons-material/HowToReg'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { ReactComponent as IconLocation } from '@Images/icon-location.svg'
 import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
@@ -23,14 +22,13 @@ import FollowService from '@App/services/follow'
 import { setIsFollowed } from '@App/store/user'
 import { UserService } from '@App/services/user'
 import { setUserData } from '@Store/user'
-import { setHelperText, setIsLoading, setIsLoggedIn } from '@App/store/login'
+import { setHelperText, setIsLoading } from '@App/store/login'
 import { ProfileProps } from './type'
 import styles from './styles'
 
 export const Profile: React.FC<ProfileProps> = (props) => {
   const { uname, isPrivate } = props
   const { isFollowed } = useParams<{ isFollowed?: string }>()
-  // console.log(isFollowed)
   const isUserFollowed = isFollowed === 'true' ? true : false
 
   const dispatch: Dispatch<AnyAction> = useDispatch()
@@ -44,7 +42,6 @@ export const Profile: React.FC<ProfileProps> = (props) => {
     [username, password]
   )
   const history = useHistory()
-  const pathToHome = AppRoute.PrivateRoutes.Profile
   useEffect(() => {
     dispatch(setIsLoading(true))
     UserService(uname, authParam, isUserFollowed).then((result) => {

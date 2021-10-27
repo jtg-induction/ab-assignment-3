@@ -22,7 +22,7 @@ export const AppBar: React.FC = () => {
     (state: IAppState) => state.search,
     shallowEqual
   )
-  const { username, password, isLoading } = useSelector(
+  const { username, password } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )

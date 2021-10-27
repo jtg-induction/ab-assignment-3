@@ -9,6 +9,7 @@ declare module '@mui/material/styles' {
   interface Theme {
     status: {
       danger: string
+      main: string
     }
     colors: {
       white: {
@@ -21,6 +22,7 @@ declare module '@mui/material/styles' {
   interface ThemeOptions {
     status?: {
       danger?: string
+      main?: string
     }
     colors?: {
       white?: {
@@ -31,8 +33,10 @@ declare module '@mui/material/styles' {
     }
   }
 }
-
 const theme = createTheme({
+  status: {
+    main: uiGreen,
+  },
   palette: {
     primary: {
       main: uiGreen,
@@ -50,6 +54,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Roboto',
+    fontSize: 14,
   },
   colors: {
     white: {
