@@ -1,4 +1,5 @@
 import { StyleProps } from './type'
+import theme from '@Src/theme'
 
 const styles: StyleProps = {
   content: {
@@ -19,8 +20,8 @@ const styles: StyleProps = {
     color: 'secondary.main',
   },
   submitButton: {
-    p: '10px',
-    borderRadius: '20px',
+    p: theme.typography.pxToRem(10),
+    borderRadius: theme.typography.pxToRem(20),
   },
 }
 export default styles

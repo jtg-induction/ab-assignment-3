@@ -13,8 +13,8 @@ import { useSelector } from 'react-redux'
 import { ReactComponent as IconLocation } from '@Images/icon-location.svg'
 import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
-import styles from './styles'
 import { Button } from '@App/components'
+import styles from './styles'
 
 export const Profile: React.FC = () => {
   const {
@@ -41,13 +41,13 @@ export const Profile: React.FC = () => {
           <Typography variant="h6" color="text.secondary" sx={styles.name}>
             {followers}
           </Typography>
-          <p>Followers</p>
+          <Typography variant="body2">Followers</Typography>
         </Box>
         <Box className="col-4">
           <Typography variant="h6" color="text.secondary" sx={styles.name}>
             {following}
           </Typography>
-          <p>Following</p>
+          <Typography variant="body2">Following</Typography>
         </Box>
       </Box>
       <Button

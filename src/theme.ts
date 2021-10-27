@@ -35,5 +35,9 @@ const theme = createTheme({
       secondary: '#46505A',
     },
   },
+  typography: {
+    fontFamily: 'Roboto',
+  },
 })
+console.log(theme)
 export default theme

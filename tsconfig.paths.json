@@ -7,7 +7,6 @@
       "@Containers/*": ["./src/app/containers/*"],
       "@Constants/*": ["./src/constants/*"],
       "@Services/*": ["./src/app/services/*"],
-      "@Styles/*": ["./src/styles/*"],
       "@Routes/*": ["./src/app/routes/*"],
       "@Actions/*": ["./src/app/store/reducers/*"],
       "@Store/*": ["./src/app/store/*"],
