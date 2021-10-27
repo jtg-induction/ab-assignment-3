@@ -11,8 +11,8 @@ import { useHistory, useLocation } from 'react-router'
 import { AppRoute } from '@Constants/index'
 import { useParams } from 'react-router-dom'
 import SearchService from '@App/services/search'
-import { setSearchData } from '@App/store/search'
-import { SearchRow } from '@App/components'
+import { setIsSearching, setSearchData } from '@App/store/search'
+import { MyLoader, SearchRow } from '@App/components'
 import styles from './styles'
 export const SearchPage = () => {
   const { username, password, helperText } = useSelector(
@@ -23,7 +23,7 @@ export const SearchPage = () => {
     () => ({ username, password }),
     [username, password]
   )
-  const { users, show } = useSelector(
+  const { users, show, isSearching } = useSelector(
     (state: IAppState) => state.search,
     shallowEqual
   )
@@ -38,6 +38,7 @@ export const SearchPage = () => {
       } else {
         dispatch(setSearchData([]))
       }
+      dispatch(setIsSearching(false))
     })
     if (helperText !== '') {
       toast(helperText)
@@ -62,7 +63,9 @@ export const SearchPage = () => {
   return (
     <>
       <AppBar />
-      <Container sx={styles.content}>{SearchedUserList()}</Container>
+      <Container sx={styles.content}>
+        {isSearching ? <MyLoader /> : SearchedUserList()}
+      </Container>
     </>
   )
 }

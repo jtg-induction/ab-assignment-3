@@ -16,11 +16,11 @@ const styles: AppBarProps = {
   },
   searchList: {
     position: 'absolute',
-    width: theme.typography.pxToRem(850),
+    width: '355px',
     zIndex: 4,
-    top: theme.typography.pxToRem(60),
-    backgroundColor: theme.colors.white.main,
-    boxShadow: theme.shadows[5],
+    top: '65px',
+    backgroundColor: 'white',
+    boxShadow: '2px 10px 6px -6px #777',
   },
 }
 export default styles

@@ -25,6 +25,7 @@
     "@types/redux-persist": "^4.3.1",
     "@types/redux-thunk": "^2.1.0",
     "axios": "^0.23.0",
+    "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",

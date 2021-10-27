@@ -31,6 +31,7 @@ type SearchedUserState = {
 }
 type SearchState = {
   show: boolean
+  isSearching: boolean
   users: SearchedUserState[]
 }
 type SuggestionUserState = {

@@ -3,6 +3,7 @@ import { ActionTypes } from '@App/store/actionTypes'
 const initialState: SearchState = {
   users: [],
   show: false,
+  isSearching: false,
 }
 
 const reducer = (
@@ -16,6 +17,10 @@ const reducer = (
     }
     case ActionTypes.SearchActionTypes.set_showstatus: {
       let obj = { ...state, show: action.value }
+      return obj
+    }
+    case ActionTypes.SearchActionTypes.set_issearching: {
+      let obj = { ...state, isSearching: action.value }
       return obj
     }
   }

@@ -13,3 +13,10 @@ export const setShowStatus = (value: boolean) => {
   }
   return action
 }
+export const setIsSearching = (value: boolean) => {
+  const action: SearchAction = {
+    type: ActionTypes.SearchActionTypes.set_issearching,
+    value,
+  }
+  return action
+}

@@ -1,4 +1,4 @@
 import reducer from './reducer'
 
 export default reducer
-export { setSearchData, setShowStatus } from './actionCreators'
+export { setSearchData, setShowStatus, setIsSearching } from './actionCreators'

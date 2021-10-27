@@ -10,9 +10,8 @@ import { Profile, AppBar, Suggestions } from '@Containers/index'
 import { setHelperText } from '@App/store/login'
 import { AppRoute } from '@Constants/index'
 import styles from './styles'
-
 export const ProfilePage = () => {
-  const { username, password, helperText } = useSelector(
+  const { username, password, helperText, isLoading } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
