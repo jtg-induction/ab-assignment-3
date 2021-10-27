@@ -1,10 +1,12 @@
-import { styled, alpha } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
+const whitePreset1 = 'rgba(255,255,255,0.15)'
+const whitePreset2 = 'rgba(255,255,255,0.25)'
 export const SearchBar = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: whitePreset1,
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: whitePreset2,
   },
   width: '95ch',
 }))

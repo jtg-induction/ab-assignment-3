@@ -21,7 +21,6 @@ export const PublicUserService: PublicUserServiceType = async (username) => {
         htmlUrl: data.html_url,
         email: data.email,
       }
-      // console.log(user)
       return user
     })
     .catch((e) => false)

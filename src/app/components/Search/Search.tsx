@@ -1,7 +1,7 @@
 import * as React from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import { SearchBar, SearchIconWrapper } from './styles'
 import { InputBase } from '@Components/index'
+import { SearchBar, SearchIconWrapper } from './styles'
 import { SearchProps } from './type'
 
 export const Search: React.FC<SearchProps> = (props) => {

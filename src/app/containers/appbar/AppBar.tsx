@@ -36,6 +36,7 @@ export const AppBar: React.FC = () => {
     },
     [dispatch]
   )
+  //used to show search results on enter
   const handleEnter = (
     e: React.BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>
   ) => {
@@ -96,7 +97,7 @@ export const AppBar: React.FC = () => {
         {show ? (
           <Container sx={styles.searchList}>{SearchedUserList()}</Container>
         ) : (
-          <></>
+          <React.Fragment />
         )}
       </MuiAppBar>
     </Box>
