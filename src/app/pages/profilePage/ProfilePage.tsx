@@ -4,6 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import { AnyAction, Dispatch } from 'redux'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Box, Container } from '@mui/material'
 
 import { Profile, AppBar, Suggestions } from '@Containers/index'

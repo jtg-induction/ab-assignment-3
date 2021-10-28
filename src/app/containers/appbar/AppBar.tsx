@@ -6,7 +6,7 @@ import { AnyAction, Dispatch } from 'redux'
 import { AppBar as MuiAppBar, Box, Container } from '@mui/material'
 import debounce from 'lodash.debounce'
 
-import { Search, SearchRow, Button, MyLoader } from '@Components/index'
+import { Search, SearchRow, Button, Loader } from '@Components/index'
 import { Logout } from '@Containers/index'
 import SearchService from '@Services/search'
 import { AppRoute, RESPONSECOUNT } from '@Src/constants'
@@ -98,7 +98,7 @@ export const AppBar: React.FC = () => {
 
             {show ? (
               <Container sx={styles.searchList}>
-                {isSearching ? <MyLoader /> : SearchedUserList()}
+                {isSearching ? <Loader /> : SearchedUserList()}
               </Container>
             ) : (
               <></>

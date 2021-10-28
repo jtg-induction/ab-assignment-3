@@ -7,7 +7,6 @@ export const UserService: UserServiceType = async (
   authParam,
   isFollowed
 ) => {
-  // console.log(isFollowed)
   return axios
     .get(`${API.GET_USERS_URL}/${username}`, {
       headers: {

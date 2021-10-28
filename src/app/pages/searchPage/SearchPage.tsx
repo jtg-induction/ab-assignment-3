@@ -9,7 +9,7 @@ import { AppRoute, RESPONSECOUNT } from '@Constants/index'
 import { useParams } from 'react-router-dom'
 import SearchService from '@App/services/search'
 import { setIsSearching, setSearchData } from '@App/store/search'
-import { MyLoader, SearchRow } from '@App/components'
+import { Loader, SearchRow } from '@App/components'
 import styles from './styles'
 export const SearchPage = () => {
   const { username, password, helperText } = useSelector(
@@ -59,7 +59,7 @@ export const SearchPage = () => {
     <>
       <AppBar />
       <Container sx={styles.content}>
-        {isSearching ? <MyLoader /> : SearchedUserList()}
+        {isSearching ? <Loader /> : SearchedUserList()}
       </Container>
     </>
   )

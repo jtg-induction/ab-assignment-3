@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/system'
-import theme from '@Src/theme'
+import theme from '../../../theme'
 
 const styles: { body: SxProps<Theme>; loader: SxProps<Theme> } = {
   body: {

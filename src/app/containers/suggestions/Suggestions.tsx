@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 import { Box, Typography } from '@mui/material'
 import { SuggestionService } from '@App/services/suggestions'
 import { setIsFollowedSugg, setSuggestions } from '@App/store/suggestions'
-import { Button, MyLoader, SuggestionRow } from '@App/components'
+import { Button, Loader, SuggestionRow } from '@App/components'
 import FollowService from '@App/services/follow'
 import { setHelperText, setIsLoading } from '@App/store/login'
 import styles from './styles'
@@ -47,6 +47,7 @@ export const Suggestions = () => {
         avatarUrl={user.avatarUrl}
         followUserHandler={() => followUser(user.username, user.index)}
         seeUserHandler={() => seeUser(user.username, user.isFollowed)}
+        isFollowed={user.isFollowed}
       />
     ))
     return arr
@@ -64,7 +65,7 @@ export const Suggestions = () => {
     history.push(`/${uname}/${isFollowed}`)
 
   if (isLoading) {
-    return <MyLoader />
+    return <Loader />
   } else
     return (
       <Box sx={styles.root}>

@@ -2,6 +2,7 @@ import { useHistory } from 'react-router'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { TextField, Button } from '@Components/index'
 import { AppRoute } from '@Constants/index'
 import {
@@ -24,7 +25,7 @@ import {
 import styles from './styles'
 import { useEffect } from 'react'
 import { useFormik } from 'formik'
-import { MyLoader } from '@Components/index'
+import { Loader } from '@Components/index'
 
 export const Login: React.FC = () => {
   const dispatch: Dispatch<AnyAction> = useDispatch()
@@ -70,7 +71,7 @@ export const Login: React.FC = () => {
   }, [helperText, dispatch])
 
   if (isLoading) {
-    return <MyLoader />
+    return <Loader />
   } else {
     return (
       <Container maxWidth="md" sx={styles.content}>

@@ -16,7 +16,7 @@ import HowToRegIcon from '@mui/icons-material/HowToReg'
 import { ReactComponent as IconLocation } from '@Images/icon-location.svg'
 import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
-import { Button, MyLoader } from '@App/components'
+import { Button, Loader } from '@App/components'
 import { AppRoute } from '@Constants/index'
 import FollowService from '@App/services/follow'
 import { setIsFollowed } from '@App/store/user'
@@ -63,7 +63,7 @@ export const Profile: React.FC<ProfileProps> = (props) => {
       }
     })
   if (isLoading) {
-    return <MyLoader />
+    return <Loader />
   } else
     return (
       <Box sx={styles.root}>

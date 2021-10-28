@@ -21,6 +21,8 @@ const styles: {
     height: '3rem',
     width: '3rem',
     img: {
+      maxWidth: '100%',
+      height: 'auto',
       objectFit: 'cover',
       borderRadius: '50%',
       border: '1px solid',
