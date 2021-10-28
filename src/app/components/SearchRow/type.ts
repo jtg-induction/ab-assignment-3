@@ -5,5 +5,4 @@ export interface SearchRowProps {
   username: string
   avatarUrl: string
   onClickHandler: () => void
-  sx?: SxProps<Theme>
 }

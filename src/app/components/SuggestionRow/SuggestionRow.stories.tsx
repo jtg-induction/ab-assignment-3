@@ -17,7 +17,4 @@ Primary.args = {
   key: 1,
   username: 'arjun-bhatt-670',
   avatarUrl: 'https://avatars.githubusercontent.com/u/92299881?v=4',
-  sx: {
-    width: '350px',
-  },
 }
