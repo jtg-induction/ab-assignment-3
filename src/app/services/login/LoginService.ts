@@ -18,6 +18,11 @@ export const LoginService: LoginServiceType = async (username, password) => {
       username: result.login,
       avatarUrl: result.avatar_url,
       followers: result.followers,
+      following: result.following,
+      bio: result.bio,
+      location: result.location,
+      htmlUrl: result.html_url,
+      email: result.email,
     }
     return user
   } catch (e) {

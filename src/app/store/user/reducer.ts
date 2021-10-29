@@ -5,6 +5,11 @@ const initialState: UserState = {
   username: '',
   avatarUrl: '',
   followers: 0,
+  following: 0,
+  bio: '',
+  email: '',
+  htmlUrl: '',
+  location: '',
 }
 
 const reducer = (

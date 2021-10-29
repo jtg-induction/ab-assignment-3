@@ -37,6 +37,7 @@ export const Login: React.FC = () => {
           history.push('/error')
         } else {
           if (result.isLoggedIn) {
+            console.log(result)
             dispatch(setUserData(result))
             history.push(AppRoute.PrivateRoutes.Profile)
           } else {
@@ -81,6 +82,7 @@ export const Login: React.FC = () => {
           variant="contained"
           color="primary"
           children="Sign In"
+          sx={styles.submitButton}
           fullWidth
         />
       </Box>

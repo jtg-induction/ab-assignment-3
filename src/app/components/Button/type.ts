@@ -1,7 +1,4 @@
 import { SxProps, Theme } from '@mui/system'
-export type StyleProps = {
-  root: SxProps<Theme>
-}
 export interface ButtonProps {
   onClickHandler?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   fullWidth?: boolean
@@ -16,5 +13,6 @@ export interface ButtonProps {
 
   type?: 'button' | 'submit' | 'reset'
   variant: 'text' | 'outlined' | 'contained'
-  size?: 'medium' | 'large'
+  size?: 'medium' | 'large' | 'small'
+  sx?: SxProps<Theme>
 }
