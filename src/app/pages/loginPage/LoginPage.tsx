@@ -1,5 +1,11 @@
-import { Login } from '@App/containers/login'
+import React from 'react'
+import { AppBar, Login } from '@Containers/index'
 
 export const LoginPage = () => {
-  return <Login />
+  return (
+    <React.Fragment>
+      <AppBar />
+      <Login />
+    </React.Fragment>
+  )
 }

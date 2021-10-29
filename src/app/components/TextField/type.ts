@@ -7,5 +7,12 @@ export interface TextFieldProps {
   fullWidth?: boolean
   autoFocus?: boolean
   variant?: 'standard' | 'filled' | 'outlined' | undefined
-  onChangeHandler?: (value: string) => void
+  onChangeHandler?: (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void
+  onBlurHandler?: (
+    e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
+  ) => void
+  helperText?: string
+  error?: boolean
 }

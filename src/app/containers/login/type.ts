@@ -3,4 +3,5 @@ export type StyleProps = {
   content: SxProps<Theme>
   helperText: SxProps<Theme>
   submitButton: SxProps<Theme>
+  title: SxProps<Theme>
 }

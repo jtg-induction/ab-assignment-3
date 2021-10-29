@@ -6,4 +6,6 @@ export {
   setPassword,
   setHelperText,
   setIsError,
+  setIsLoading,
+  setIsLoggedIn,
 } from './actionCreators'

@@ -8,12 +8,13 @@ const styles: StyleProps = {
     boxShadow: theme.shadows[24],
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
     '& .MuiAvatar-root': {
       mb: 1,
       backgroundColor: 'background.paper',
     },
   },
+  title: { flexBasis: theme.typography.pxToRem(225) },
   helperText: {
     mt: 2,
     ml: 0.5,

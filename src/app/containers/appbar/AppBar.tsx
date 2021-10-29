@@ -1,28 +1,29 @@
 import * as React from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { AnyAction, Dispatch } from 'redux'
 import { AppBar as MuiAppBar, Box, Container } from '@mui/material'
 import debounce from 'lodash.debounce'
 
-import { Search, SearchRow } from '@Components/index'
+import { Search, SearchRow, Button, Loader } from '@Components/index'
 import { Logout } from '@Containers/index'
 import SearchService from '@Services/search'
-import { PublicUserService } from '@App/services/publicuser'
-import { setPublicUserData } from '@App/store/publicuser'
-import { setSearchData, setShowStatus } from '@App/store/search'
+import constants from '@Constants/index'
+import { setIsSearching, setSearchData, setShowStatus } from '@App/store/search'
 import styles from './styles'
+var _ = require('lodash')
 
 export const AppBar: React.FC = () => {
   const history = useHistory()
+  const currentPath = useLocation().pathname
   const [searchValue, setSearchValue] = useState('')
   const dispatch: Dispatch<AnyAction> = useDispatch()
-  const { users, show } = useSelector(
+  const { users, show, isSearching } = useSelector(
     (state: IAppState) => state.search,
     shallowEqual
   )
-  const { username, password } = useSelector(
+  const { username, password, isLoggedIn } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
@@ -34,6 +35,7 @@ export const AppBar: React.FC = () => {
     () => (value: string) => {
       dispatch(setShowStatus(true))
       setSearchValue(value)
+      dispatch(setIsSearching(true))
     },
     [dispatch]
   )
@@ -42,7 +44,7 @@ export const AppBar: React.FC = () => {
     e: React.BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>
   ) => {
     e.preventDefault()
-    debouncedHandle(e.target[0].value)
+    dispatch(setShowStatus(true))
   }
   const debouncedHandle = useMemo(
     () => debounce(handleSearchText, 300),
@@ -56,20 +58,40 @@ export const AppBar: React.FC = () => {
         dispatch(setShowStatus(false))
       }
     }
-    SearchService(searchValue, authParam).then((result) => {
-      if (result) {
-        dispatch(setSearchData(result))
-      } else {
-        dispatch(setSearchData([]))
-      }
-    })
+    if (!_.isEmpty(searchValue)) {
+      SearchService(
+        searchValue,
+        authParam,
+        constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_1
+      ).then((result) => {
+        dispatch(setIsSearching(false))
+        if (result) {
+          dispatch(setSearchData(result))
+        } else {
+          dispatch(setSearchData([]))
+        }
+      })
+    } else {
+      dispatch(setShowStatus(false))
+    }
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
       debouncedHandle.cancel()
     }
   }, [ref, dispatch, searchValue, authParam, debouncedHandle])
   const SearchedUserList = () => {
-    let arr = users.map((user: SearchedUserState) => (
+    if (users.length === 0) {
+      return [
+        <SearchRow
+          key={0}
+          username="User not found"
+          avatarUrl="https://via.placeholder.com/50"
+          onClickHandler={() => {}}
+        />,
+      ]
+    }
+    const arr = users.map((user: SearchedUserState) => (
       <SearchRow
         key={user.id}
         username={user.username}
@@ -79,26 +101,50 @@ export const AppBar: React.FC = () => {
     ))
     return arr
   }
-  const findPublicUser = (uname: string) =>
-    PublicUserService(uname).then((result) => {
-      if (result) {
-        dispatch(setPublicUserData(result))
-        history.push(`/${uname}`)
-      }
-    })
+  const findPublicUser = (uname: string) => history.push(`/${uname}`)
+
   return (
-    <Box ref={ref} sx={styles.root}>
+    <Box sx={styles.root}>
       <MuiAppBar sx={styles.content} position="relative">
-        <form onSubmit={handleEnter}>
-          <Search
-            handleSearchText={(value: string) => debouncedHandle(value)}
-          />
+        <form style={styles.searchForm} onSubmit={handleEnter}>
+          <div ref={ref}>
+            <Search
+              handleSearchText={(value: string) => debouncedHandle(value)}
+            />
+
+            {show ? (
+              <Container sx={styles.searchList}>
+                {isSearching ? <Loader /> : SearchedUserList()}
+              </Container>
+            ) : (
+              <></>
+            )}
+          </div>
+          <Button
+            disabled={_.isEmpty(searchValue) ? true : false}
+            onClickHandler={() => {
+              dispatch(setIsSearching(true))
+              history.push(constants.PublicRoutes.Search + '/' + searchValue)
+            }}
+            variant="contained"
+            color="info"
+            sx={styles.roundedBtn}
+          >
+            Search
+          </Button>
         </form>
-        <Logout />
-        {show ? (
-          <Container sx={styles.searchList}>{SearchedUserList()}</Container>
+        {currentPath === constants.PrivateRoutes.Profile ? (
+          <Logout />
         ) : (
-          <React.Fragment />
+          <Button
+            variant="contained"
+            color="info"
+            onClickHandler={() => history.push(constants.PrivateRoutes.Profile)}
+            size="medium"
+            disabled={!isLoggedIn}
+          >
+            Back to home
+          </Button>
         )}
       </MuiAppBar>
     </Box>

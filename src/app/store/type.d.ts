@@ -1,27 +1,19 @@
 interface IAppState {
   login: LoginState
-  user: UserState
   search: SearchState
-  publicuser: PublicUserState
+  user: UserState
+  suggestions: SuggestionsState
 }
 type LoginState = {
   username: string
   password: string
   isError: boolean
   helperText: string
+  isLoading: boolean
+  isLoggedIn: boolean
 }
 type UserState = {
-  isLoggedIn: boolean
-  username: string
-  avatarUrl: string
-  bio: string
-  email: string
-  htmlUrl: string
-  location: string
-  followers: number
-  following: number
-}
-type PublicUserState = {
+  isFollowed?: boolean
   username: string
   avatarUrl: string
   bio: string
@@ -39,13 +31,20 @@ type SearchedUserState = {
 }
 type SearchState = {
   show: boolean
+  isSearching: boolean
   users: SearchedUserState[]
 }
-type LoginAction = {
-  type: string
-  value: any
+type SuggestionUserState = {
+  isFollowed: boolean
+  index: number
+  id: number
+  username: string
+  avatarUrl: string
 }
-type UserAction = {
+type SuggestionsState = {
+  users: SuggestionUserState[]
+}
+type LoginAction = {
   type: string
   value: any
 }
@@ -53,8 +52,13 @@ type SearchAction = {
   type: string
   value: any
 }
-type PublicUserAction = {
+type UserAction = {
   type: string
   value: any
+}
+type SuggestionsAction = {
+  type: string
+  value: any
+  index?: number
 }
 type DispatchType = (args: LoginAction) => LoginAction

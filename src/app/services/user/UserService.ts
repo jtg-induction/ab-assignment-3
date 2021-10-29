@@ -1,17 +1,26 @@
 import axios from 'axios'
-import { API } from '@Constants/index'
-import { PublicUserServiceType } from './type'
+import constants from '@Constants/index'
+import { UserServiceType } from './type'
 
-export const PublicUserService: PublicUserServiceType = async (username) => {
+export const UserService: UserServiceType = async (
+  username,
+  authParam,
+  isFollowed
+) => {
   return axios
-    .get(`${API.GET_A_USER_URL}/${username}`, {
+    .get(`${constants.API.GET_USERS_URL}/${username}`, {
       headers: {
         accept: 'application/vnd.github.v3+json',
+      },
+      auth: {
+        username: authParam.username,
+        password: authParam.password,
       },
     })
     .then((response: any) => {
       const data = response.data
-      const user: PublicUserState = {
+      const user: UserState = {
+        isFollowed: isFollowed,
         username: data.login,
         avatarUrl: data.avatar_url,
         followers: data.followers,

@@ -12,7 +12,7 @@ export const Search: React.FC<SearchProps> = (props) => {
         <SearchIcon />
       </SearchIconWrapper>
       <InputBase
-        placeholder="Search…"
+        placeholder=""
         inputProps={{ 'aria-label': 'search' }}
         onChangeHandler={(value: string) => handleSearchText(value)}
       />

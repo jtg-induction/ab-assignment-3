@@ -1,6 +1,4 @@
-import { Route, Redirect, Switch } from 'react-router-dom'
-import { PageNotFound } from '@Pages/index'
-import { Profile } from '@App/containers'
+import { Route, Redirect } from 'react-router-dom'
 
 type PropsI = {
   auth: boolean
@@ -12,17 +10,11 @@ type PropsI = {
 const GuardedRoute: React.FC<PropsI> = (props) => {
   const { auth, toPath, Component, ...rest } = props
   return (
-    <Switch>
-      <Route
-        {...rest}
-        render={() =>
-          auth === true ? <Component /> : <Redirect to={toPath} />
-        }
-        exact
-      />
-      <Route path="/:id" component={Profile} exact />
-      <Route component={PageNotFound} />
-    </Switch>
+    <Route
+      {...rest}
+      render={() => (auth === true ? <Component /> : <Redirect to={toPath} />)}
+      exact
+    />
   )
 }
 

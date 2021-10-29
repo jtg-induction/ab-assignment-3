@@ -3,5 +3,6 @@ export type SearchServiceType = (
   authParam: {
     username: string
     password: string
-  }
+  },
+  length: number
 ) => Promise<false | SearchedUserState[]>

@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 export const SearchBar = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: theme.typography.pxToRem(40),
   backgroundColor: theme.colors.white.preset1,
   '&:hover': {
     backgroundColor: theme.colors.white.preset2,

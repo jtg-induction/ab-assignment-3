@@ -1,7 +1,7 @@
 import { ActionTypes } from '@App/store/actionTypes'
 
 const initialState: UserState = {
-  isLoggedIn: false,
+  isFollowed: false,
   username: '',
   avatarUrl: '',
   followers: 0,
@@ -17,13 +17,11 @@ const reducer = (
   action: UserAction
 ): UserState => {
   switch (action.type) {
-    case ActionTypes.UserActionTypes.set_isloggedin: {
-      let obj = { ...state, isLoggedIn: action.value }
-      return obj
-    }
     case ActionTypes.UserActionTypes.set_userdata: {
-      let obj = { ...state, ...action.value }
-      return obj
+      return action.value
+    }
+    case ActionTypes.UserActionTypes.set_isfollowed: {
+      return { ...state, isFollowed: action.value }
     }
   }
   return state

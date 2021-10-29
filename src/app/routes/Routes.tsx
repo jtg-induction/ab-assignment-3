@@ -1,28 +1,43 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { AppRoute } from '@Constants/index'
-import GuardedRoute from './GuardedRoutes'
+import constants from '@Constants/index'
 import { LoginPage, ProfilePage, PageNotFound } from '@Pages/index'
-import { Profile } from '@App/containers'
+import { SearchPage } from '@App/pages/searchPage'
+import GuardedRoute from './GuardedRoutes'
 
 export const Routes: React.FC = () => {
-  const { isLoggedIn } = useSelector((state: IAppState) => state.user)
+  const { isLoggedIn } = useSelector((state: IAppState) => state.login)
   return (
     <Router>
       <Switch>
         <GuardedRoute
-          path={AppRoute.PublicRoutes.SignIn}
+          path={constants.PublicRoutes.SignIn}
           Component={LoginPage}
           auth={!isLoggedIn}
-          toPath={AppRoute.PrivateRoutes.Profile}
+          toPath={constants.PrivateRoutes.Profile}
         />
         <GuardedRoute
-          path={AppRoute.PrivateRoutes.Profile}
+          path={constants.PrivateRoutes.Profile}
           Component={ProfilePage}
           auth={isLoggedIn}
-          toPath={AppRoute.PublicRoutes.SignIn}
+          toPath={constants.PublicRoutes.SignIn}
         />
-        <Route path="/:id" component={Profile} exact />
+        <Route
+          path={`${constants.PublicRoutes.Search}/:query`}
+          component={SearchPage}
+          exact
+        />
+        <Route path="/:id/:isFollowed?" component={ProfilePage} exact />
+        <Route
+          path={constants.PublicRoutes.Root}
+          render={() => <Redirect to={constants.PublicRoutes.SignIn} />}
+          exact
+        />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

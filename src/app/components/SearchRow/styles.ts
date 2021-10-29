@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/system'
-import theme from '@Src/theme'
+import theme from '../../../theme'
 const styles: {
   root: SxProps<Theme>
   item: SxProps<Theme>
@@ -28,6 +28,8 @@ const styles: {
     height: '3rem',
     width: '3rem',
     img: {
+      maxWidth: '100%',
+      height: 'auto',
       objectFit: 'cover',
       borderRadius: '50%',
       border: '1px solid',

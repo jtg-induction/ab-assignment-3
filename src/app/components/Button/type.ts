@@ -12,7 +12,9 @@ export interface ButtonProps {
     | 'warning'
 
   type?: 'button' | 'submit' | 'reset'
-  variant: 'text' | 'outlined' | 'contained'
+  variant?: 'text' | 'outlined' | 'contained'
   size?: 'medium' | 'large' | 'small'
   sx?: SxProps<Theme>
+  disabled?: boolean
+  children: React.ReactNode
 }

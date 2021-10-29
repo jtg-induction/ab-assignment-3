@@ -1,14 +1,12 @@
 import { createTheme } from '@mui/material'
-
-const uiGreen = '#2c974b'
-const uiRed = '#b23b3b'
-const white = '#fff'
-const black = '#000'
+import uiConfig from './uiConfig'
+const { colors, font } = uiConfig
 
 declare module '@mui/material/styles' {
   interface Theme {
     status: {
       danger: string
+      main: string
     }
     colors: {
       white: {
@@ -21,6 +19,7 @@ declare module '@mui/material/styles' {
   interface ThemeOptions {
     status?: {
       danger?: string
+      main?: string
     }
     colors?: {
       white?: {
@@ -31,31 +30,35 @@ declare module '@mui/material/styles' {
     }
   }
 }
-
 const theme = createTheme({
   palette: {
     primary: {
-      main: uiGreen,
+      main: colors.UI_GREEN,
+      light: colors.LIGHT_GREEN,
     },
     secondary: {
-      main: uiRed,
+      main: colors.UI_RED,
     },
     background: {
-      paper: white,
+      paper: colors.WHITE,
     },
     text: {
-      primary: black,
-      secondary: '#46505A',
+      primary: colors.BLACK,
+      secondary: colors.BLUEISH_GREY,
+    },
+    info: {
+      main: colors.VIOLET,
     },
   },
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: font.FAMILY,
+    fontSize: Number(font.SIZE),
   },
   colors: {
     white: {
-      main: white,
-      preset1: 'rgba(255,255,255,0.15)',
-      preset2: 'rgba(255,255,255,0.25)',
+      main: colors.WHITE,
+      preset1: colors.WHITE_1,
+      preset2: colors.WHITE_2,
     },
   },
 })

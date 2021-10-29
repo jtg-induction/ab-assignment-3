@@ -3,12 +3,13 @@ import { TextField as MuiTextField } from '@mui/material'
 import { TextFieldProps } from './type'
 
 export const TextField: React.FC<TextFieldProps> = (props) => {
-  const { onChangeHandler, children, ...restProps } = props
+  const { onChangeHandler, onBlurHandler, children, ...restProps } = props
   return (
     <MuiTextField
       onChange={(e) =>
-        onChangeHandler === undefined ? null : onChangeHandler(e.target.value)
+        onChangeHandler === undefined ? null : onChangeHandler(e)
       }
+      onBlur={(e) => (onBlurHandler === undefined ? null : onBlurHandler(e))}
       {...restProps}
     >
       {children}

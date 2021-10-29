@@ -16,11 +16,13 @@ const styles: AppBarProps = {
   },
   searchList: {
     position: 'absolute',
-    width: theme.typography.pxToRem(850),
+    width: theme.typography.pxToRem(355),
     zIndex: 4,
-    top: theme.typography.pxToRem(60),
-    backgroundColor: theme.colors.white.main,
-    boxShadow: theme.shadows[5],
+    top: theme.typography.pxToRem(65),
+    backgroundColor: 'white',
+    boxShadow: theme.shadows[3],
   },
+  searchForm: { display: 'flex', gap: 5 },
+  roundedBtn: { borderRadius: '45px' },
 }
 export default styles
