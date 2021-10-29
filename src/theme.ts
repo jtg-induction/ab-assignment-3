@@ -12,6 +12,7 @@ declare module '@mui/material/styles' {
     }
     colors: {
       white: {
+        main: string
         preset1: string
         preset2: string
       }
@@ -23,6 +24,7 @@ declare module '@mui/material/styles' {
     }
     colors?: {
       white?: {
+        main?: string
         preset1?: string
         preset2?: string
       }
@@ -48,6 +50,13 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Roboto',
+  },
+  colors: {
+    white: {
+      main: white,
+      preset1: 'rgba(255,255,255,0.15)',
+      preset2: 'rgba(255,255,255,0.25)',
+    },
   },
 })
 export default theme

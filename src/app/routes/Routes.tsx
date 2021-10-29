@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AppRoute } from '@Constants/index'
 import GuardedRoute from './GuardedRoutes'
-import { LoginPage, ProfilePage } from '@Pages/index'
-import { PageNotFound } from '@App/pages/404'
+import { LoginPage, ProfilePage, PageNotFound } from '@Pages/index'
+import { Profile } from '@App/containers'
 
 export const Routes: React.FC = () => {
   const { isLoggedIn } = useSelector((state: IAppState) => state.user)
@@ -22,6 +22,7 @@ export const Routes: React.FC = () => {
           auth={isLoggedIn}
           toPath={AppRoute.PublicRoutes.SignIn}
         />
+        <Route path="/:id" component={Profile} exact />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

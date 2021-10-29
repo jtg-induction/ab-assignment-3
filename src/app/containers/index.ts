@@ -1,3 +1,4 @@
 export { Profile } from './profile'
 export { Login } from './login'
-export { Search } from './search'
+export { AppBar } from './appbar'
+export { Logout } from './logout'
