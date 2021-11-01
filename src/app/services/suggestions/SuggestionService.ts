@@ -2,7 +2,7 @@ import { instance, requestConfig } from '@Services/Service'
 import Constants from '@Constants/index'
 import { SuggestionServiceType } from './type'
 
-export const SuggestionService: SuggestionServiceType = async (authParam) => {
+export const SuggestionService: SuggestionServiceType = async () => {
   const start = Math.floor(Math.random() * 10000 + 1)
   const suggestionRequestConfig = requestConfig(
     'GET',

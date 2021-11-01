@@ -22,13 +22,9 @@ const AppBar: React.FC = () => {
     (state: IAppState) => state.search,
     shallowEqual
   )
-  const { username, password, isLoggedIn } = useSelector(
+  const { isLoggedIn } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
-  )
-  const authParam = useMemo(
-    () => ({ username, password }),
-    [username, password]
   )
   const handleSearchText = useMemo(
     () => (value: string) => {
@@ -60,7 +56,6 @@ const AppBar: React.FC = () => {
     if (!_.isEmpty(searchValue)) {
       SearchService(
         searchValue,
-        authParam,
         Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_1
       ).then((result) => {
         dispatch(setIsSearching(false))
@@ -78,7 +73,7 @@ const AppBar: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside)
       debouncedHandle.cancel()
     }
-  }, [ref, dispatch, searchValue, authParam, debouncedHandle])
+  }, [ref, dispatch, searchValue, debouncedHandle])
   const SearchedUserList = () => {
     if (users.length === 0) {
       return [

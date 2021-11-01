@@ -2,11 +2,7 @@ import { instance, requestConfig } from '@Services/Service'
 import Constants from '@Constants/index'
 import { UserServiceType } from './type'
 
-export const UserService: UserServiceType = async (
-  username,
-  authParam,
-  isFollowed
-) => {
+export const UserService: UserServiceType = async (username, isFollowed) => {
   const userRequestConfig = requestConfig(
     'GET',
     `${Constants.API.GET_USERS_URL}/${username}`

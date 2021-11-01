@@ -1,7 +1,7 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { Container, Pagination } from '@mui/material'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Constants from '@Constants/index'
 import { useParams } from 'react-router-dom'
@@ -10,13 +10,9 @@ import { setIsSearching, setSearchData } from '@App/store/search'
 import { Loader, SearchRow } from '@App/components'
 import styles from './styles'
 const SearchPage = () => {
-  const { username, password, helperText } = useSelector(
+  const { helperText } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
-  )
-  const authParam = useMemo(
-    () => ({ username, password }),
-    [username, password]
   )
   const { users, isSearching } = useSelector(
     (state: IAppState) => state.search,
@@ -28,19 +24,17 @@ const SearchPage = () => {
   const [indexStart, setIndexStart] = useState(0)
 
   useEffect(() => {
-    SearchService(
-      query,
-      authParam,
-      Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_2
-    ).then((result) => {
-      if (result) {
-        dispatch(setSearchData(result))
-      } else {
-        dispatch(setSearchData([]))
+    SearchService(query, Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_2).then(
+      (result) => {
+        if (result) {
+          dispatch(setSearchData(result))
+        } else {
+          dispatch(setSearchData([]))
+        }
+        dispatch(setIsSearching(false))
       }
-      dispatch(setIsSearching(false))
-    })
-  }, [authParam, dispatch, helperText, query])
+    )
+  }, [dispatch, helperText, query])
 
   const findPublicUser = (uname: string) => history.push(`/${uname}`)
 

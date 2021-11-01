@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { useHistory } from 'react-router'
@@ -18,25 +18,21 @@ const Suggestions: React.FC = () => {
     (state: IAppState) => state.suggestions,
     shallowEqual
   )
-  const { username, password, isLoading } = useSelector(
+  const { isLoading } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
-  )
-  const authParam = useMemo(
-    () => ({ username, password }),
-    [username, password]
   )
   useEffect(() => {
     if (!users.length) {
       dispatch(setIsLoading(true))
-      SuggestionService(authParam).then((result) => {
+      SuggestionService().then((result) => {
         if (result) {
           dispatch(setSuggestions(result))
           dispatch(setIsLoading(false))
         }
       })
     }
-  }, [authParam, dispatch, users.length])
+  }, [dispatch, users.length])
 
   const suggestionsList = () => {
     const arr = users.map((user: SuggestionUserState) => (
@@ -54,7 +50,7 @@ const Suggestions: React.FC = () => {
   }
 
   const followUser = (uname: string, i: number) =>
-    FollowService(uname, authParam).then((result) => {
+    FollowService(uname).then((result) => {
       if (result && result.status === 204) {
         dispatch(setIsFollowedSugg(i, true))
         dispatch(setHelperText(Constants.ToastMessages.USER_FOLLOWED))

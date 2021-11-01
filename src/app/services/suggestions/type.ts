@@ -1,4 +1,1 @@
-export type SuggestionServiceType = (authParam: {
-  username: string
-  password: string
-}) => Promise<SuggestionUserState[] | false>
+export type SuggestionServiceType = () => Promise<SuggestionUserState[] | false>

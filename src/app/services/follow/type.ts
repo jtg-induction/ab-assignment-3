@@ -1,7 +1,1 @@
-export type FollowServiceType = (
-  uname: string,
-  authParam: {
-    username: string
-    password: string
-  }
-) => Promise<any>
+export type FollowServiceType = (uname: string) => Promise<any>

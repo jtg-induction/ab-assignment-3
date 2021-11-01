@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { useHistory, useParams } from 'react-router'
@@ -33,18 +33,14 @@ const Profile: React.FC<ProfileProps> = (props) => {
 
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const userData = useSelector((state: IAppState) => state.user)
-  const { username, password, isLoading, isLoggedIn } = useSelector(
+  const { isLoading, isLoggedIn } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
-  )
-  const authParam = useMemo(
-    () => ({ username, password }),
-    [username, password]
   )
   const history = useHistory()
   useEffect(() => {
     dispatch(setIsLoading(true))
-    UserService(uname, authParam, isUserFollowed).then((result) => {
+    UserService(uname, isUserFollowed).then((result) => {
       if (result) {
         dispatch(setUserData(result))
         dispatch(setIsLoading(false))
@@ -53,10 +49,10 @@ const Profile: React.FC<ProfileProps> = (props) => {
         dispatch(setHelperText(Constants.ToastMessages.NOT_FOUND))
       }
     })
-  }, [uname, authParam, dispatch, history, isUserFollowed])
+  }, [uname, dispatch, history, isUserFollowed])
 
   const followUser = () =>
-    FollowService(userData.username, authParam).then((result) => {
+    FollowService(userData.username).then((result) => {
       if (
         result &&
         result.status === Constants.RESPONSE_STATUS_CODES.NO_CONTENT
