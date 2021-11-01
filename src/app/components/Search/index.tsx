@@ -12,8 +12,9 @@ const Search: React.FC<SearchProps> = (props) => {
         <SearchIcon />
       </SearchIconWrapper>
       <InputBase
+        data-testid="input"
         inputProps={{ 'aria-label': 'search' }}
-        onChangeHandler={handleSearchText}
+        onChangeHandler={(value) => handleSearchText?.(value)}
       />
     </SearchBar>
   )

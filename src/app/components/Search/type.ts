@@ -1,3 +1,3 @@
 export type SearchProps = {
-  handleSearchText: (value: string) => void
+  handleSearchText?: (value: string) => void
 }

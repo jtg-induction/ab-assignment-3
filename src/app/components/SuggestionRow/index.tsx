@@ -13,7 +13,7 @@ const SuggestionRow: React.FC<SuggestionRowProps> = (props) => {
       <Box sx={styles.root}>
         <Link sx={styles.item} onClick={seeUserHandler}>
           <Box sx={styles.profilePic}>
-            <img src={avatarUrl} alt="profile pic" />
+            <img data-testid="image" src={avatarUrl} alt="profile pic" />
           </Box>
           <Typography>{username}</Typography>
         </Link>
