@@ -1,15 +1,13 @@
 import { ActionTypes } from '@App/store/actionTypes'
-export const setUserData = (value: UserState) => {
-  const action: UserAction = {
-    type: ActionTypes.UserActionTypes.set_userdata,
+export const setUserData = (value: UserState): UserAction => {
+  return {
+    type: ActionTypes.UserActionTypes.set_user_data,
     value,
   }
-  return action
 }
-export const setIsFollowed = (value: boolean) => {
-  const action: UserAction = {
-    type: ActionTypes.UserActionTypes.set_isfollowed,
+export const setIsFollowed = (value: boolean): UserAction => {
+  return {
+    type: ActionTypes.UserActionTypes.set_is_followed,
     value,
   }
-  return action
 }

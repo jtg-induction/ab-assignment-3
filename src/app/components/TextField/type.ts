@@ -13,6 +13,6 @@ export interface TextFieldProps {
   onBlurHandler?: (
     e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
   ) => void
-  helperText?: string
+  helperText?: string | boolean
   error?: boolean
 }

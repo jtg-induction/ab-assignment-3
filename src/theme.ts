@@ -14,6 +14,9 @@ declare module '@mui/material/styles' {
         preset1: string
         preset2: string
       }
+      blue: {
+        main: string
+      }
     }
   }
   interface ThemeOptions {
@@ -26,6 +29,9 @@ declare module '@mui/material/styles' {
         main?: string
         preset1?: string
         preset2?: string
+      }
+      blue?: {
+        main?: string
       }
     }
   }
@@ -59,6 +65,9 @@ const theme = createTheme({
       main: colors.WHITE,
       preset1: colors.WHITE_1,
       preset2: colors.WHITE_2,
+    },
+    blue: {
+      main: colors.SKY_BLUE,
     },
   },
 })

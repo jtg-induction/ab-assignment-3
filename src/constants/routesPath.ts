@@ -6,3 +6,5 @@ export enum PublicRoutes {
 export enum PrivateRoutes {
   Profile = '/dashboard',
 }
+export const userPath = (id: string, isFollowed: string): string =>
+  `/:${id}/:${isFollowed}?`

@@ -1,31 +1,26 @@
-import axios from 'axios'
-import constants from '@Constants/index'
+import { instance, requestConfig } from '@Services/Service'
+import Constants from '@Constants/index'
 import { SuggestionServiceType } from './type'
 
 export const SuggestionService: SuggestionServiceType = async (authParam) => {
   const start = Math.floor(Math.random() * 10000 + 1)
-  return axios
-    .get(constants.API.GET_USERS_URL, {
-      headers: {
-        accept: 'application/vnd.github.v3+json',
-      },
-      params: {
-        since: start,
-        per_page: constants.RESPONSE_COUNT.MAX_SUGGESTIONS_RESPONSE,
-      },
-      auth: {
-        username: authParam.username,
-        password: authParam.password,
-      },
-    })
+  const suggestionRequestConfig = requestConfig(
+    'GET',
+    Constants.API.GET_USERS_URL,
+    {
+      since: start,
+      per_page: Constants.RESPONSE_COUNT.MAX_SUGGESTIONS_RESPONSE,
+    }
+  )
+  return instance(suggestionRequestConfig)
     .then((response: any) => {
       const data = response.data
       let people: SuggestionUserState[] = [],
-        cnt = 0
+        count = 0
       data.forEach((user: any) => {
         people.push({
           isFollowed: false,
-          index: cnt++,
+          index: count++,
           id: user.id,
           username: user.login,
           avatarUrl: user.avatar_url,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import { InputBase } from './InputBase'
+import InputBase from '.'
 import { InputBaseProps } from './type'
 
 export default {

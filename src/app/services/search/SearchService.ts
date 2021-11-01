@@ -1,22 +1,13 @@
-import axios from 'axios'
+import { instance, requestConfig } from '@Services/Service'
 import { API } from '@Constants/api'
 import { SearchServiceType } from './type'
 
 const SearchService: SearchServiceType = async (query, authParam, length) => {
-  return axios
-    .get(API.SEARCH_QUERY_URL, {
-      headers: {
-        accept: 'application/vnd.github.v3+json',
-      },
-      params: {
-        per_page: length,
-        q: query,
-      },
-      auth: {
-        username: authParam.username,
-        password: authParam.password,
-      },
-    })
+  const searchRequestConfig = requestConfig('GET', API.SEARCH_QUERY_URL, {
+    q: query,
+    per_page: length,
+  })
+  return instance(searchRequestConfig)
     .then((response: any) => {
       const jsonObj = response.data
       const users: SearchedUserState[] = []

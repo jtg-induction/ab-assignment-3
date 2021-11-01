@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from '@mui/system'
-
 import { CssBaseline } from '@mui/material'
-import { Routes } from './app/routes'
+
+import Routes from '@App/Routes'
 import { persistor, store } from '@App/store'
 import theme from './theme'
 import '@Styles/main.scss'

@@ -1,22 +1,10 @@
 import { ActionTypes } from '@App/store/actionTypes'
-export const setSearchData = (value: SearchedUserState[]) => {
-  const action: SearchAction = {
-    type: ActionTypes.SearchActionTypes.set_searchdata,
-    value,
-  }
-  return action
+export const setSearchData = (value: SearchedUserState[]): SearchAction => {
+  return { type: ActionTypes.SearchActionTypes.set_search_data, value }
 }
-export const setShowStatus = (value: boolean) => {
-  const action: SearchAction = {
-    type: ActionTypes.SearchActionTypes.set_showstatus,
-    value,
-  }
-  return action
+export const setShowStatus = (value: boolean): SearchAction => {
+  return { type: ActionTypes.SearchActionTypes.set_show_status, value }
 }
-export const setIsSearching = (value: boolean) => {
-  const action: SearchAction = {
-    type: ActionTypes.SearchActionTypes.set_issearching,
-    value,
-  }
-  return action
+export const setIsSearching = (value: boolean): SearchAction => {
+  return { type: ActionTypes.SearchActionTypes.set_is_searching, value }
 }

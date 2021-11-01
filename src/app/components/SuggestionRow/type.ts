@@ -3,7 +3,7 @@ export interface SuggestionRowProps {
   index: number
   username: string
   avatarUrl: string
-  followUserHandler: any
-  seeUserHandler: any
+  followUserHandler: () => void
+  seeUserHandler: () => void
   isFollowed: boolean
 }

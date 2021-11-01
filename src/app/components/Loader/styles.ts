@@ -1,19 +1,20 @@
 import { SxProps, Theme } from '@mui/system'
-import theme from '../../../theme'
+import { flex } from '@Src/utilities'
+import theme from '@Src/theme'
 
 const styles: { body: SxProps<Theme>; loader: SxProps<Theme> } = {
   body: {
+    ...flex('center', 'center'),
     m: 0,
     width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     p: 0,
   },
   loader: {
     width: theme.typography.pxToRem(40),
     height: theme.typography.pxToRem(40),
-    border: `5px solid ${theme.palette.primary.light}`,
+    border: `${theme.typography.pxToRem(5)} solid ${
+      theme.palette.primary.light
+    }`,
     borderLeftColor: theme.palette.primary.main,
     borderRadius: '50%',
     background: 'transparent',

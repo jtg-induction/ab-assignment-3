@@ -1,8 +1,9 @@
 export enum API {
-  USER_AUTH_URL = 'https://api.github.com/user',
-  SEARCH_QUERY_URL = 'https://api.github.com/search/users',
-  GET_USERS_URL = 'https://api.github.com/users',
-  FOLLOW_USER_URL = 'https://api.github.com/user/following',
+  BASE_URL = 'https://api.github.com',
+  USER_AUTH_URL = '/user',
+  SEARCH_QUERY_URL = '/search/users',
+  GET_USERS_URL = '/users',
+  FOLLOW_USER_URL = '/user/following',
 }
 export enum RESPONSE_COUNT {
   MAX_SEARCH_RESPONSE_1 = 7,
@@ -14,4 +15,8 @@ export enum RESPONSE_STATUS_CODES {
   SUCCESS = 200,
   NOT_FOUND = 404,
   UNAUTH = 401,
+}
+export enum AUTH {
+  username = 'arjun-bhatt-670',
+  token = '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',
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import { Loader } from '.'
+import Loader from '.'
 
 export default {
   component: Loader,

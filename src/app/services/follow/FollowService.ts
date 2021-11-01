@@ -1,20 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import Constants from '@Src/constants'
+import { instance, requestConfig } from '@Services/Service'
 import { FollowServiceType } from './type'
 
-const burl: string | undefined = process.env.REACT_APP_BASE_URL
-const instance = axios.create({
-  baseURL: burl,
-})
-
 const FollowService: FollowServiceType = async (uname, authParam) => {
-  const config: AxiosRequestConfig<any> = {
-    method: 'PUT',
-    url: `/user/following/${uname}`,
-    headers: {
-      Authorization: 'token ' + authParam.password,
-    },
-  }
+  const followRequestConfig = requestConfig(
+    'PUT',
+    `${Constants.API.FOLLOW_USER_URL}/${uname}`
+  )
 
-  return instance(config)
+  return instance(followRequestConfig)
 }
 export default FollowService

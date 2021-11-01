@@ -22,23 +22,21 @@ export const setHelperText = (value: string) => {
 }
 export const setIsError = (value: boolean) => {
   const action: LoginAction = {
-    type: ActionTypes.LoginActionTypes.set_iserror,
+    type: ActionTypes.LoginActionTypes.set_is_error,
     value,
   }
   return action
 }
 export const setIsLoading = (value: boolean) => {
   const action: LoginAction = {
-    type: ActionTypes.LoginActionTypes.set_isloading,
+    type: ActionTypes.LoginActionTypes.set_is_loading,
     value,
   }
   return action
 }
-export const setIsLoggedIn = (value: boolean) => {
-  const action: LoginAction = {
-    type: ActionTypes.LoginActionTypes.set_isloggedin,
+export const setIsLoggedIn = (value: boolean): LoginAction => {
+  return {
+    type: ActionTypes.LoginActionTypes.set_is_loggedin,
     value,
   }
-  return action
 }
-// export const LoginServiceAction = (value:)

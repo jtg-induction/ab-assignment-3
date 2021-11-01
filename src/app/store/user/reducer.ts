@@ -17,10 +17,10 @@ const reducer = (
   action: UserAction
 ): UserState => {
   switch (action.type) {
-    case ActionTypes.UserActionTypes.set_userdata: {
+    case ActionTypes.UserActionTypes.set_user_data: {
       return action.value
     }
-    case ActionTypes.UserActionTypes.set_isfollowed: {
+    case ActionTypes.UserActionTypes.set_is_followed: {
       return { ...state, isFollowed: action.value }
     }
   }

@@ -1,11 +1,12 @@
-const styles = {
+import { SxProps, Theme } from '@mui/system'
+import theme from '@Src/theme'
+const styles: { ButtonStyle: SxProps<Theme> } = {
   ButtonStyle: {
     textDecoration: 'none',
-    padding: '10px',
+    padding: theme.typography.pxToRem(10),
     background: 'transparent',
-    border: '1px solid',
-    backgroundColor: 'skyblue',
-    color: 'white',
+    backgroundColor: theme.colors.blue.main,
+    color: theme.colors.white.main,
   },
 }
 export default styles

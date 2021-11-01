@@ -1,10 +1,10 @@
 import { SxProps, Theme } from '@mui/system'
-import theme from '../../../theme'
+import { flex } from '@Src/utilities'
+import theme from '@Src/theme'
 const styles: {
   root: SxProps<Theme>
   item: SxProps<Theme>
   profilePic: SxProps<Theme>
-  username: SxProps<Theme>
 } = {
   root: {
     '&:hover': {
@@ -14,10 +14,7 @@ const styles: {
   },
   item: {
     padding: theme.typography.pxToRem(10),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    gap: theme.typography.pxToRem(20),
+    ...flex(undefined, 'center', undefined, theme.typography.pxToRem(20)),
     textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {
@@ -25,18 +22,14 @@ const styles: {
     },
   },
   profilePic: {
-    height: '3rem',
-    width: '3rem',
+    height: theme.typography.pxToRem(48),
+    width: theme.typography.pxToRem(48),
     img: {
       maxWidth: '100%',
       height: 'auto',
       objectFit: 'cover',
       borderRadius: '50%',
-      border: '1px solid',
     },
-  },
-  username: {
-    fontSize: theme.typography.pxToRem(15),
   },
 }
 export default styles

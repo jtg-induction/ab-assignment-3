@@ -1,6 +1,6 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import { AppLink } from './AppLink'
+import AppLink from '.'
 
 export default {
   component: AppLink,

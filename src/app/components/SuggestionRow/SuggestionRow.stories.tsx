@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import { SuggestionRow } from './SuggestionRow'
+import SuggestionRow from '.'
 import { SuggestionRowProps } from './type'
 
 export default {

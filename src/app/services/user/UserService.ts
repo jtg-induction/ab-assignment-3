@@ -1,5 +1,5 @@
-import axios from 'axios'
-import constants from '@Constants/index'
+import { instance, requestConfig } from '@Services/Service'
+import Constants from '@Constants/index'
 import { UserServiceType } from './type'
 
 export const UserService: UserServiceType = async (
@@ -7,16 +7,11 @@ export const UserService: UserServiceType = async (
   authParam,
   isFollowed
 ) => {
-  return axios
-    .get(`${constants.API.GET_USERS_URL}/${username}`, {
-      headers: {
-        accept: 'application/vnd.github.v3+json',
-      },
-      auth: {
-        username: authParam.username,
-        password: authParam.password,
-      },
-    })
+  const userRequestConfig = requestConfig(
+    'GET',
+    `${Constants.API.GET_USERS_URL}/${username}`
+  )
+  return instance(userRequestConfig)
     .then((response: any) => {
       const data = response.data
       const user: UserState = {
@@ -32,5 +27,8 @@ export const UserService: UserServiceType = async (
       }
       return user
     })
-    .catch((e) => false)
+    .catch((e) => {
+      console.log(e)
+      return false
+    })
 }

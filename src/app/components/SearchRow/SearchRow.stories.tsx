@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import { SearchRow } from './SearchRow'
+import SearchRow from '.'
 import { SearchRowProps } from './type'
 
 export default {

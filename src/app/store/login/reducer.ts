@@ -29,17 +29,17 @@ const reducer = (
         ...state,
         helperText: action.value,
       }
-    case ActionTypes.LoginActionTypes.set_iserror:
+    case ActionTypes.LoginActionTypes.set_is_error:
       return {
         ...state,
         isError: action.value,
       }
-    case ActionTypes.LoginActionTypes.set_isloading:
+    case ActionTypes.LoginActionTypes.set_is_loading:
       return {
         ...state,
         isLoading: action.value,
       }
-    case ActionTypes.LoginActionTypes.set_isloggedin: {
+    case ActionTypes.LoginActionTypes.set_is_loggedin: {
       return { ...state, isLoggedIn: action.value }
     }
   }

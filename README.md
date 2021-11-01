@@ -1,4 +1,4 @@
-# Name
+# Project Name
 
 Github Profile application built using React and Typescript.
 

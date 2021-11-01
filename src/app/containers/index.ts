@@ -1,5 +1,6 @@
-export { Profile } from './profile'
-export { Login } from './login'
-export { AppBar } from './appbar'
-export { Logout } from './logout'
-export { Suggestions } from './suggestions'
+import Profile from './Profile'
+import Login from './Login'
+import AppBar from './AppBar'
+import Logout from './Logout'
+import Suggestions from './Suggestions'
+export { Profile, Login, AppBar, Logout, Suggestions }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-import { TextField } from './TextField'
+import TextField from '.'
 import { TextFieldProps } from './type'
 
 export default {

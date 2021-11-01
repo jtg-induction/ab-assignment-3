@@ -1,4 +1,4 @@
 export type LoginServiceType = (
   username: FormDataEntryValue | null,
-  password: FormDataEntryValue | null
+  token: FormDataEntryValue | null
 ) => Promise<string>

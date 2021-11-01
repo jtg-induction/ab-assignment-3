@@ -1,12 +1,19 @@
-import { PrivateRoutes, PublicRoutes } from './routesPath'
-import { API, RESPONSE_COUNT, RESPONSE_STATUS_CODES } from './api'
-import { Toast } from './toast'
-const constants = {
-  PrivateRoutes,
-  PublicRoutes,
+import { PrivateRoutes, PublicRoutes, userPath } from './routesPath'
+import { API, RESPONSE_COUNT, RESPONSE_STATUS_CODES, AUTH } from './api'
+import { ToastConstants, ToastMessages } from './toast'
+import signInformConfig from './signInformConfig'
+const Constants = {
   API,
   RESPONSE_COUNT,
   RESPONSE_STATUS_CODES,
-  Toast,
+  AUTH,
+
+  PrivateRoutes,
+  PublicRoutes,
+  userPath,
+
+  ToastConstants,
+  ToastMessages,
+  signInformConfig,
 }
-export default constants
+export default Constants
