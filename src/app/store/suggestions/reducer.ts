@@ -13,8 +13,8 @@ const reducer = (
       return { ...state, users: action.value }
     }
     case ActionTypes.SuggestionsActionTypes.set_is_followedsugg: {
-      let i = action.index === undefined ? 0 : action.index
-      let usersNew = state.users
+      const i = action.index === undefined ? 0 : action.index
+      const usersNew = state.users
       usersNew[i] = {
         ...usersNew[i],
         isFollowed: action.value,

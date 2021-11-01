@@ -105,7 +105,9 @@ const Profile: React.FC<ProfileProps> = (props) => {
         size="small"
         sx={styles.profileButton}
       >
-        <span style={{ paddingRight: '5px' }}>Github profile</span>
+        <Typography variant="inherit" style={{ paddingRight: '5px' }}>
+          Github profile
+        </Typography>
         <IconExternal />
       </Button>
       <Divider sx={styles.line} />
