@@ -6,4 +6,5 @@ export type AppBarProps = {
   searchList: SxProps<Theme>
   searchForm: React.CSSProperties
   roundedBtn: SxProps<Theme>
+  language: SxProps<Theme>
 }

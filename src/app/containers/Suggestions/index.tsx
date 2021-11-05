@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { useHistory } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
 import { SuggestionService } from '@App/services/suggestions'
 import { setIsFollowedSugg, setSuggestions } from '@App/store/suggestions'
@@ -22,6 +23,7 @@ const Suggestions: React.FC = () => {
     (state: IAppState) => state.login,
     shallowEqual
   )
+  const { t } = useTranslation()
   useEffect(() => {
     if (!users.length) {
       dispatch(setIsLoading(true))
@@ -65,7 +67,7 @@ const Suggestions: React.FC = () => {
   } else
     return (
       <Box sx={styles.root}>
-        <Typography variant="h4">Whom to Follow?</Typography>
+        <Typography variant="h4">{t('whomToFollow')}</Typography>
         <Box>{suggestionsList()}</Box>
       </Box>
     )

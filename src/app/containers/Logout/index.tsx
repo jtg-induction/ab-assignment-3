@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@Components/index'
 import { setIsLoggedIn } from '@App/store/login'
 import { setHelperText } from '@App/store/login'
@@ -11,6 +12,7 @@ const Logout: React.FC = () => {
     dispatch(setHelperText(Constants.ToastMessages.LOGOUT_SUCCESS))
     dispatch(setIsLoggedIn(false))
   }
+  const { t } = useTranslation()
   return (
     <Button
       onClickHandler={handleLogout}
@@ -18,7 +20,7 @@ const Logout: React.FC = () => {
       color="secondary"
       size="medium"
     >
-      Logout
+      {t('logout')}
     </Button>
   )
 }

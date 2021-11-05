@@ -23,5 +23,6 @@ const styles: AppBarProps = {
   },
   searchForm: { display: 'flex', gap: 5 },
   roundedBtn: { borderRadius: theme.typography.pxToRem(45) },
+  language: { padding: 1, position: 'absolute' },
 }
 export default styles

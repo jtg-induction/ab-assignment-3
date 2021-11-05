@@ -7,6 +7,7 @@ import { CssBaseline } from '@mui/material'
 
 import Routes from '@App/Routes'
 import { persistor, store } from '@App/store'
+import '@Translations/i18n'
 import theme from './theme'
 import '@Styles/main.scss'
 

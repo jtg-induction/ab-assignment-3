@@ -13,7 +13,8 @@
       "@Routes/*": ["src/app/routes/*"],
       "@Actions/*": ["src/app/store/reducers/*"],
       "@Store/*": ["src/app/store/*"],
-      "@Pages/*": ["src/app/pages/*"]
+      "@Pages/*": ["src/app/pages/*"],
+      "@Translations/*": ["src/translations/*"]
     }
   }
 }

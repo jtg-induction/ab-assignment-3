@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { useHistory, useParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import {
   Avatar,
   Box,
@@ -38,7 +39,9 @@ const Profile: React.FC<ProfileProps> = (props) => {
     shallowEqual
   )
   const history = useHistory()
+  const { t } = useTranslation()
   useEffect(() => {
+    console.log(uname)
     dispatch(setIsLoading(true))
     UserService(uname, isUserFollowed).then((result) => {
       if (result) {
@@ -106,7 +109,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
         sx={styles.profileButton}
       >
         <Typography variant="inherit" style={{ paddingRight: '5px' }}>
-          Github profile
+          {t('githubProfile')}
         </Typography>
         <IconExternal />
       </Button>

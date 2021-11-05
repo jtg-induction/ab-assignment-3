@@ -40,3 +40,9 @@ export const setIsLoggedIn = (value: boolean): LoginAction => {
     value,
   }
 }
+export const setLanguage = (value: string): LoginAction => {
+  return {
+    type: ActionTypes.LoginActionTypes.set_language,
+    value,
+  }
+}

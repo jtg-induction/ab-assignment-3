@@ -12,12 +12,13 @@ import { setHelperText } from '@App/store/login'
 import Constants from '@Constants/index'
 import styles from './styles'
 const ProfilePage = () => {
-  const { username, helperText } = useSelector(
+  const { helperText } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
   const dispatch: Dispatch<AnyAction> = useDispatch()
-  const [usernameForProfile, setUsernameForProfile] = useState(username)
+  const username: string = Constants.AUTH.username
+  const [usernameForProfile, setUsernameForProfile] = useState('')
   const currentPath = useLocation().pathname
   const isPrivate = currentPath === Constants.PrivateRoutes.Profile
   const pathToHome = Constants.PrivateRoutes.Profile
@@ -32,17 +33,26 @@ const ProfilePage = () => {
             : currentPath.lastIndexOf('/')
         )
       )
-    }
+    } else setUsernameForProfile(username)
     if (helperText) {
       toast(helperText)
       dispatch(setHelperText(''))
     }
-  }, [helperText, dispatch, currentPath, pathToHome, usernameForProfile])
+  }, [
+    helperText,
+    dispatch,
+    currentPath,
+    pathToHome,
+    usernameForProfile,
+    username,
+  ])
 
   return (
     <React.Fragment>
       <Box sx={styles.content}>
-        <Profile uname={usernameForProfile} isPrivate={isPrivate} />
+        {usernameForProfile && (
+          <Profile uname={usernameForProfile} isPrivate={isPrivate} />
+        )}
         {isPrivate && <Suggestions />}
       </Box>
       <ToastContainer
