@@ -1,15 +1,15 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
 import styles from './styles'
-import errorImage from '@Images/404.jpg'
+import { ReactComponent as ErrorSign } from '@Images/error.svg'
 
 const PageNotFound = () => {
+  const { t } = useTranslation()
   return (
     <Box sx={styles.root}>
-      <Box sx={styles.errorImage}>
-        <img src={errorImage} alt="not found" />
-      </Box>
-      <Typography variant="h3">This page could not be found</Typography>
+      <ErrorSign />
+      <Typography sx={styles.errorText} variant="h3">{t('thisPageCouldNotBeFound')}</Typography>
     </Box>
   )
 }

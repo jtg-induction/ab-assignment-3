@@ -55,7 +55,7 @@ const Suggestions: React.FC = () => {
     FollowService(uname).then((result) => {
       if (result && result.status === 204) {
         dispatch(setIsFollowedSugg(i, true))
-        dispatch(setHelperText(Constants.ToastMessages.USER_FOLLOWED))
+        dispatch(setHelperText(t(Constants.ToastMessages.USER_FOLLOWED)))
       }
     })
 

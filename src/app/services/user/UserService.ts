@@ -24,7 +24,6 @@ export const UserService: UserServiceType = async (username, isFollowed) => {
       return user
     })
     .catch((e) => {
-      console.log(e)
       return false
     })
 }

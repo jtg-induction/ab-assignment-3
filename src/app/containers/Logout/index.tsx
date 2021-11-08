@@ -7,12 +7,12 @@ import { setHelperText } from '@App/store/login'
 import Constants from '@Src/constants'
 
 const Logout: React.FC = () => {
+  const { t } = useTranslation()
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const handleLogout = () => {
-    dispatch(setHelperText(Constants.ToastMessages.LOGOUT_SUCCESS))
+    dispatch(setHelperText(t(Constants.ToastMessages.LOGOUT_SUCCESS)))
     dispatch(setIsLoggedIn(false))
   }
-  const { t } = useTranslation()
   return (
     <Button
       onClickHandler={handleLogout}

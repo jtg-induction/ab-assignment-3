@@ -24,17 +24,20 @@ const SearchPage: React.FC = () => {
   const [indexStart, setIndexStart] = useState(0)
 
   useEffect(() => {
-    SearchService(query, Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_2).then(
-      (result) => {
-        if (result) {
-          dispatch(setSearchData(result))
-        } else {
-          dispatch(setSearchData([]))
+    if (query.indexOf('/') > 0) {
+      history.push(Constants.PublicRoutes.Error)
+    } else
+      SearchService(query, Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_2).then(
+        (result) => {
+          if (result) {
+            dispatch(setSearchData(result))
+          } else {
+            dispatch(setSearchData([]))
+          }
+          dispatch(setIsSearching(false))
         }
-        dispatch(setIsSearching(false))
-      }
-    )
-  }, [dispatch, helperText, query])
+      )
+  }, [dispatch, helperText, history, query])
 
   const findPublicUser = (uname: string) => history.push(`/${uname}`)
 

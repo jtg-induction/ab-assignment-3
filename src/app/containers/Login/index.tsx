@@ -38,7 +38,7 @@ const Login: React.FC = () => {
       _.isEmpty(formik.values[signInFormConfig.username.name]) ||
       _.isEmpty(formik.values[signInFormConfig.token.name])
     ) {
-      dispatch(setHelperText(Constants.ToastMessages.FILL_ALL))
+      dispatch(setHelperText(t(Constants.ToastMessages.FILL_ALL)))
     } else {
       dispatch(setIsLoading(true))
       LoginService(
@@ -46,14 +46,14 @@ const Login: React.FC = () => {
         formik.values[signInFormConfig.token.name]
       ).then((message) => {
         dispatch(setIsLoading(false))
-        if (message === 'error') history.push('/404/error')
+        if (message === 'error') history.push(Constants.PublicRoutes.Error)
         else if (message === 'fail') {
-          dispatch(setHelperText(Constants.ToastMessages.WRONG_INFO))
+          dispatch(setHelperText(t(Constants.ToastMessages.WRONG_INFO)))
         } else {
           dispatch(setUsername(formik.values[signInFormConfig.username.name]))
           dispatch(setPassword(formik.values[signInFormConfig.token.name]))
           dispatch(setIsLoggedIn(true))
-          dispatch(setHelperText(Constants.ToastMessages.LOGIN_SUCCESS))
+          dispatch(setHelperText(t(Constants.ToastMessages.LOGIN_SUCCESS)))
         }
       })
     }
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
         [signInFormConfig.username.name]: '',
         [signInFormConfig.token.name]: '',
       }
-      const errorMessage = 'This field is required'
+      const errorMessage = t('thisFieldIsRequired')
       errors[signInFormConfig.username.name] =
         (_.isEmpty(values[signInFormConfig.username.name]) || '') &&
         errorMessage
@@ -82,7 +82,7 @@ const Login: React.FC = () => {
 
       return errors
     },
-    onSubmit: (values) => {},
+    onSubmit: (values) => { },
     validateOnBlur: true,
     validateOnChange: true,
   })

@@ -41,15 +41,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
   const history = useHistory()
   const { t } = useTranslation()
   useEffect(() => {
-    console.log(uname)
     dispatch(setIsLoading(true))
     UserService(uname, isUserFollowed).then((result) => {
+      dispatch(setIsLoading(false))
       if (result) {
         dispatch(setUserData(result))
-        dispatch(setIsLoading(false))
       } else {
-        history.push(Constants.PrivateRoutes.Profile)
-        dispatch(setHelperText(Constants.ToastMessages.NOT_FOUND))
+        history.push(Constants.PublicRoutes.Error)
       }
     })
   }, [uname, dispatch, history, isUserFollowed])
@@ -61,7 +59,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
         result.status === Constants.RESPONSE_STATUS_CODES.NO_CONTENT
       ) {
         dispatch(setIsFollowed(true))
-        dispatch(setHelperText(Constants.ToastMessages.USER_FOLLOWED))
+        dispatch(setHelperText(t(Constants.ToastMessages.USER_FOLLOWED)))
       }
     })
   return isLoading ? (
@@ -82,7 +80,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
             onClickHandler={followUser}
             disabled={userData.isFollowed || !isLoggedIn}
           >
-            {!userData.isFollowed ? 'Follow' : <HowToRegIcon />}
+            {!userData.isFollowed ? t('follow') : <HowToRegIcon />}
           </Button>
         )}
       </Typography>
@@ -91,13 +89,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
           <Typography variant="h6" color="text.secondary">
             {userData.followers}
           </Typography>
-          <Typography variant="body2">Followers</Typography>
+          <Typography variant="body2">{t('followers')}</Typography>
         </Box>
         <Box className="col-4">
           <Typography variant="h6" color="text.secondary">
             {userData.following}
           </Typography>
-          <Typography variant="body2">Following</Typography>
+          <Typography variant="body2">{t('following')}</Typography>
         </Box>
       </Box>
       <Button
