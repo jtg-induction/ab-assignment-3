@@ -25,10 +25,5 @@ To lock your node version, follow these steps in your terminal:
     `npm run format` (Formatting)
     `npm run lint` (linting)
 
-# Credits
-
--> Collaborators :
-Taniket Mehra
-Abhishek verma
-Rudra Kaniya
-Arjun Bhatt
+# `.env` file
+ Create a `.env` file and copy values from `.env.sample`.
