@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
-import { useHistory, useParams } from 'react-router'
+import { useHistory } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import {
   Avatar,
@@ -19,7 +19,7 @@ import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
 import { Button, Loader } from '@App/components'
 import Constants from '@Constants/index'
-import FollowService from '@App/services/follow'
+import FollowService, { checkFollowedStatus } from '@App/services/follow'
 import { setIsFollowed } from '@App/store/user'
 import { UserService } from '@App/services/user'
 import { setUserData } from '@Store/user'
@@ -29,23 +29,30 @@ import styles from './styles'
 
 const Profile: React.FC<ProfileProps> = (props) => {
   const { uname, isPrivate } = props
-  const { isFollowed } = useParams<{ isFollowed?: string }>()
-  const isUserFollowed = isFollowed === 'true'
-
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const userData = useSelector((state: IAppState) => state.user)
   const { isLoading, isLoggedIn } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
+  const [isUserFollowed, setIsUserFollowed] = useState({
+    checked: uname === Constants.AUTH.username,
+    value: false,
+  })
   const history = useHistory()
   const { t } = useTranslation()
   useEffect(() => {
     dispatch(setIsLoading(true))
-    UserService(uname, isUserFollowed).then((result) => {
+    if (!isUserFollowed.checked)
+      checkFollowedStatus(uname).then((result: boolean) => {
+        setIsUserFollowed({ checked: true, value: result })
+      })
+    UserService(uname).then((result) => {
       dispatch(setIsLoading(false))
       if (result) {
-        dispatch(setUserData(result))
+        dispatch(
+          setUserData({ ...result, ...{ isFollowed: isUserFollowed.value } })
+        )
       } else {
         history.push(Constants.PublicRoutes.Error)
       }
@@ -62,7 +69,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
         dispatch(setHelperText(t(Constants.ToastMessages.USER_FOLLOWED)))
       }
     })
-  return isLoading ? (
+  return isLoading || !isUserFollowed.checked ? (
     <Loader />
   ) : (
     <Box sx={styles.root}>

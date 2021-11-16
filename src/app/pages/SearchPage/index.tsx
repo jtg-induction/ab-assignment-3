@@ -39,7 +39,8 @@ const SearchPage: React.FC = () => {
       )
   }, [dispatch, helperText, history, query])
 
-  const findPublicUser = (uname: string) => history.push(`/${uname}`)
+  const findPublicUser = (uname: string) =>
+    history.push(`${Constants.PublicRoutes.Users}/${uname}`)
 
   const SearchedUserList = (start: number) => {
     const arr = []

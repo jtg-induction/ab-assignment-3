@@ -2,7 +2,8 @@ export enum PublicRoutes {
   Root = '/',
   SignIn = '/login',
   Search = '/search',
-  Error = '/404/error/1'
+  Users = '/users',
+  Error = '/404/error/1',
 }
 export enum PrivateRoutes {
   Profile = '/dashboard',

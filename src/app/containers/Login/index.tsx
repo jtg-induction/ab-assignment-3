@@ -30,7 +30,6 @@ const Login: React.FC = () => {
   )
   const history = useHistory()
   const signInFormConfig = Constants.signInformConfig
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     formik.handleSubmit()
@@ -82,7 +81,7 @@ const Login: React.FC = () => {
 
       return errors
     },
-    onSubmit: (values) => { },
+    onSubmit: (values) => {},
     validateOnBlur: true,
     validateOnChange: true,
   })

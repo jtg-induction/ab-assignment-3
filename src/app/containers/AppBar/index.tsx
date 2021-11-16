@@ -93,7 +93,7 @@ const AppBar: React.FC = () => {
           key={0}
           username="User not found"
           avatarUrl="https://via.placeholder.com/50"
-          onClickHandler={() => { }}
+          onClickHandler={() => {}}
         />,
       ]
     }
@@ -107,7 +107,10 @@ const AppBar: React.FC = () => {
     ))
     return arr
   }
-  const findPublicUser = (uname: string) => { dispatch(setShowStatus(false)); history.push(`/${uname}`) }
+  const findPublicUser = (uname: string) => {
+    dispatch(setShowStatus(false))
+    history.push(`${Constants.PublicRoutes.Users}/${uname}`)
+  }
   const changeLanguage = (e: any) => {
     dispatch(setLanguage(e.target.value))
   }

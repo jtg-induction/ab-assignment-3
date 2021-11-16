@@ -34,7 +34,7 @@ const Routes: React.FC = () => {
           exact
         />
         <Route
-          path={Constants.userPath('id', 'isFollowed?')}
+          path={`${Constants.PublicRoutes.Users}/:userid`}
           component={ProfilePage}
           exact
         />
