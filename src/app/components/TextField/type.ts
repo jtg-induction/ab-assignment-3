@@ -1,9 +1,9 @@
 export interface TextFieldProps {
-  name: string
+  name?: string
   margin?: 'none' | 'dense' | 'normal'
-  label: string
+  label?: string
   children?: string
-  type: string
+  type?: string
   fullWidth?: boolean
   autoFocus?: boolean
   variant?: 'standard' | 'filled' | 'outlined' | undefined
