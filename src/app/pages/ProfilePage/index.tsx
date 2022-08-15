@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { AnyAction, Dispatch } from 'redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,38 +11,43 @@ import { Profile, Suggestions } from '@Containers/index'
 import { setHelperText } from '@App/store/login'
 import Constants from '@Constants/index'
 import styles from './styles'
+import { useParams } from 'react-router-dom'
 const ProfilePage = () => {
-  const { username, helperText } = useSelector(
+  const { helperText } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
   const dispatch: Dispatch<AnyAction> = useDispatch()
-  const [usernameForProfile, setUsernameForProfile] = useState(username)
+  const username: string = Constants.AUTH.username
+  const [usernameForProfile, setUsernameForProfile] = useState('')
   const currentPath = useLocation().pathname
-  const isPrivate = currentPath === Constants.PrivateRoutes.Profile
+  const { userid } = useParams<{ userid: string }>()
+  const history = useHistory()
   const pathToHome = Constants.PrivateRoutes.Profile
+  const isPrivate = currentPath === pathToHome || userid === username
+  if (userid && userid.indexOf('/') >= 0) {
+    history.push(Constants.PublicRoutes.Error)
+  }
 
   useEffect(() => {
-    if (currentPath !== pathToHome) {
-      setUsernameForProfile(
-        currentPath.substring(
-          1,
-          currentPath.lastIndexOf('/') === 0
-            ? currentPath.length
-            : currentPath.lastIndexOf('/')
-        )
-      )
+    if (currentPath === pathToHome) {
+      setUsernameForProfile(username)
+    } else {
+      if (userid) setUsernameForProfile(userid)
+      else history.push(Constants.PublicRoutes.Error)
     }
     if (helperText) {
       toast(helperText)
       dispatch(setHelperText(''))
     }
-  }, [helperText, dispatch, currentPath, pathToHome, usernameForProfile])
+  }, [helperText, dispatch, currentPath, pathToHome, username, userid, history])
 
   return (
     <React.Fragment>
       <Box sx={styles.content}>
-        <Profile uname={usernameForProfile} isPrivate={isPrivate} />
+        {usernameForProfile && (
+          <Profile uname={usernameForProfile} isPrivate={isPrivate} />
+        )}
         {isPrivate && <Suggestions />}
       </Box>
       <ToastContainer

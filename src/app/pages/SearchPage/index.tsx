@@ -1,6 +1,6 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
-import { Container, Pagination } from '@mui/material'
+import { Box, Pagination } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Constants from '@Constants/index'
@@ -9,7 +9,7 @@ import SearchService from '@App/services/search'
 import { setIsSearching, setSearchData } from '@App/store/search'
 import { Loader, SearchRow } from '@App/components'
 import styles from './styles'
-const SearchPage = () => {
+const SearchPage: React.FC = () => {
   const { helperText } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
@@ -24,19 +24,23 @@ const SearchPage = () => {
   const [indexStart, setIndexStart] = useState(0)
 
   useEffect(() => {
-    SearchService(query, Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_2).then(
-      (result) => {
-        if (result) {
-          dispatch(setSearchData(result))
-        } else {
-          dispatch(setSearchData([]))
+    if (query.indexOf('/') > 0) {
+      history.push(Constants.PublicRoutes.Error)
+    } else
+      SearchService(query, Constants.RESPONSE_COUNT.MAX_SEARCH_RESPONSE_2).then(
+        (result) => {
+          if (result) {
+            dispatch(setSearchData(result))
+          } else {
+            dispatch(setSearchData([]))
+          }
+          dispatch(setIsSearching(false))
         }
-        dispatch(setIsSearching(false))
-      }
-    )
-  }, [dispatch, helperText, query])
+      )
+  }, [dispatch, helperText, history, query])
 
-  const findPublicUser = (uname: string) => history.push(`/${uname}`)
+  const findPublicUser = (uname: string) =>
+    history.push(`${Constants.PublicRoutes.Users}/${uname}`)
 
   const SearchedUserList = (start: number) => {
     const arr = []
@@ -59,16 +63,17 @@ const SearchPage = () => {
   }
 
   return (
-    <Container sx={styles.content}>
+    <Box sx={styles.content}>
       {isSearching ? <Loader /> : SearchedUserList(indexStart * 6)}
       <Pagination
+        sx={styles.pagination}
         count={5}
         defaultPage={1}
         onChange={(e: any) => {
           setIndexStart(e.target.innerText - 1)
         }}
       />
-    </Container>
+    </Box>
   )
 }
 export default SearchPage

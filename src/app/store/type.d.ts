@@ -11,6 +11,7 @@ type LoginState = {
   helperText: string
   isLoading: boolean
   isLoggedIn: boolean
+  language: string
 }
 type UserState = {
   isFollowed?: boolean

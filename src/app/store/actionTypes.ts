@@ -5,6 +5,7 @@ enum LoginActionTypes {
   set_is_error = 'SET_IS_ERROR',
   set_is_loading = 'SET_IS_LOADING',
   set_is_loggedin = 'SET_IS_LOGGEDIN',
+  set_language = 'SET_LANGUAGE',
 }
 enum SearchActionTypes {
   set_search_data = 'SET_SEARCH_DATA',

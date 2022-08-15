@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
-import { useHistory, useParams } from 'react-router'
+import { useHistory } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import {
   Avatar,
   Box,
@@ -18,7 +19,7 @@ import { ReactComponent as IconEmail } from '@Images/icon-email.svg'
 import { ReactComponent as IconExternal } from '@Images/icon-external.svg'
 import { Button, Loader } from '@App/components'
 import Constants from '@Constants/index'
-import FollowService from '@App/services/follow'
+import FollowService, { checkFollowedStatus } from '@App/services/follow'
 import { setIsFollowed } from '@App/store/user'
 import { UserService } from '@App/services/user'
 import { setUserData } from '@Store/user'
@@ -28,25 +29,32 @@ import styles from './styles'
 
 const Profile: React.FC<ProfileProps> = (props) => {
   const { uname, isPrivate } = props
-  const { isFollowed } = useParams<{ isFollowed?: string }>()
-  const isUserFollowed = isFollowed === 'true'
-
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const userData = useSelector((state: IAppState) => state.user)
   const { isLoading, isLoggedIn } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
+  const [isUserFollowed, setIsUserFollowed] = useState({
+    checked: uname === Constants.AUTH.username,
+    value: false,
+  })
   const history = useHistory()
+  const { t } = useTranslation()
   useEffect(() => {
     dispatch(setIsLoading(true))
-    UserService(uname, isUserFollowed).then((result) => {
+    if (!isUserFollowed.checked)
+      checkFollowedStatus(uname).then((result: boolean) => {
+        setIsUserFollowed({ checked: true, value: result })
+      })
+    UserService(uname).then((result) => {
+      dispatch(setIsLoading(false))
       if (result) {
-        dispatch(setUserData(result))
-        dispatch(setIsLoading(false))
+        dispatch(
+          setUserData({ ...result, ...{ isFollowed: isUserFollowed.value } })
+        )
       } else {
-        history.push(Constants.PrivateRoutes.Profile)
-        dispatch(setHelperText(Constants.ToastMessages.NOT_FOUND))
+        history.push(Constants.PublicRoutes.Error)
       }
     })
   }, [uname, dispatch, history, isUserFollowed])
@@ -58,10 +66,10 @@ const Profile: React.FC<ProfileProps> = (props) => {
         result.status === Constants.RESPONSE_STATUS_CODES.NO_CONTENT
       ) {
         dispatch(setIsFollowed(true))
-        dispatch(setHelperText(Constants.ToastMessages.USER_FOLLOWED))
+        dispatch(setHelperText(t(Constants.ToastMessages.USER_FOLLOWED)))
       }
     })
-  return isLoading ? (
+  return isLoading || !isUserFollowed.checked ? (
     <Loader />
   ) : (
     <Box sx={styles.root}>
@@ -79,7 +87,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
             onClickHandler={followUser}
             disabled={userData.isFollowed || !isLoggedIn}
           >
-            {!userData.isFollowed ? 'Follow' : <HowToRegIcon />}
+            {!userData.isFollowed ? t('follow') : <HowToRegIcon />}
           </Button>
         )}
       </Typography>
@@ -88,13 +96,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
           <Typography variant="h6" color="text.secondary">
             {userData.followers}
           </Typography>
-          <Typography variant="body2">Followers</Typography>
+          <Typography variant="body2">{t('followers')}</Typography>
         </Box>
         <Box className="col-4">
           <Typography variant="h6" color="text.secondary">
             {userData.following}
           </Typography>
-          <Typography variant="body2">Following</Typography>
+          <Typography variant="body2">{t('following')}</Typography>
         </Box>
       </Box>
       <Button
@@ -106,7 +114,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
         sx={styles.profileButton}
       >
         <Typography variant="inherit" style={{ paddingRight: '5px' }}>
-          Github profile
+          {t('githubProfile')}
         </Typography>
         <IconExternal />
       </Button>

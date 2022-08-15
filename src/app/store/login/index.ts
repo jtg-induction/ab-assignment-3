@@ -8,4 +8,5 @@ export {
   setIsError,
   setIsLoading,
   setIsLoggedIn,
+  setLanguage,
 } from './actionCreators'

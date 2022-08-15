@@ -4,6 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useTranslation } from 'react-i18next'
 import { useFormik } from 'formik'
 import { Box, Typography, Container, Avatar } from '@mui/material'
 import _ from 'lodash'
@@ -21,6 +22,7 @@ import Constants from '@Constants/index'
 import styles from './styles'
 
 const Login: React.FC = () => {
+  const { t } = useTranslation()
   const dispatch: Dispatch<AnyAction> = useDispatch()
   const { helperText, isLoading } = useSelector(
     (state: IAppState) => state.login,
@@ -28,7 +30,6 @@ const Login: React.FC = () => {
   )
   const history = useHistory()
   const signInFormConfig = Constants.signInformConfig
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     formik.handleSubmit()
@@ -36,7 +37,7 @@ const Login: React.FC = () => {
       _.isEmpty(formik.values[signInFormConfig.username.name]) ||
       _.isEmpty(formik.values[signInFormConfig.token.name])
     ) {
-      dispatch(setHelperText(Constants.ToastMessages.FILL_ALL))
+      dispatch(setHelperText(t(Constants.ToastMessages.FILL_ALL)))
     } else {
       dispatch(setIsLoading(true))
       LoginService(
@@ -44,14 +45,14 @@ const Login: React.FC = () => {
         formik.values[signInFormConfig.token.name]
       ).then((message) => {
         dispatch(setIsLoading(false))
-        if (message === 'error') history.push('/error')
+        if (message === 'error') history.push(Constants.PublicRoutes.Error)
         else if (message === 'fail') {
-          dispatch(setHelperText(Constants.ToastMessages.WRONG_INFO))
+          dispatch(setHelperText(t(Constants.ToastMessages.WRONG_INFO)))
         } else {
           dispatch(setUsername(formik.values[signInFormConfig.username.name]))
           dispatch(setPassword(formik.values[signInFormConfig.token.name]))
           dispatch(setIsLoggedIn(true))
-          dispatch(setHelperText(Constants.ToastMessages.LOGIN_SUCCESS))
+          dispatch(setHelperText(t(Constants.ToastMessages.LOGIN_SUCCESS)))
         }
       })
     }
@@ -70,7 +71,7 @@ const Login: React.FC = () => {
         [signInFormConfig.username.name]: '',
         [signInFormConfig.token.name]: '',
       }
-      const errorMessage = 'This field is required'
+      const errorMessage = t('thisFieldIsRequired')
       errors[signInFormConfig.username.name] =
         (_.isEmpty(values[signInFormConfig.username.name]) || '') &&
         errorMessage
@@ -103,7 +104,7 @@ const Login: React.FC = () => {
               <Logo />
             </Avatar>
             <Typography color="text.primary" variant="h5">
-              Sign in to GitHub
+              {t('title')}
             </Typography>
           </React.Fragment>
         )}
@@ -113,7 +114,7 @@ const Login: React.FC = () => {
         <TextField
           name={signInFormConfig.username.name}
           margin="normal"
-          label={signInFormConfig.username.label}
+          label={t(`label.${signInFormConfig.username.label}`)}
           children={formik.values.username}
           type={signInFormConfig.username.type}
           onBlurHandler={formik.handleBlur}
@@ -131,7 +132,7 @@ const Login: React.FC = () => {
         <TextField
           name={signInFormConfig.token.name}
           margin="normal"
-          label={signInFormConfig.token.label}
+          label={t(`label.${signInFormConfig.token.label}`)}
           children={formik.values.token}
           type={signInFormConfig.token.type}
           onBlurHandler={formik.handleBlur}
@@ -150,7 +151,7 @@ const Login: React.FC = () => {
           type="submit"
           variant="contained"
           color="primary"
-          children="Sign In"
+          children={t('signIn')}
           sx={styles.submitButton}
           disabled={isLoading}
           fullWidth

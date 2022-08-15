@@ -7,6 +7,7 @@ const initialState: LoginState = {
   helperText: '',
   isLoading: false,
   isLoggedIn: false,
+  language: 'en',
 }
 
 const reducer = (
@@ -41,6 +42,9 @@ const reducer = (
       }
     case ActionTypes.LoginActionTypes.set_is_loggedin: {
       return { ...state, isLoggedIn: action.value }
+    }
+    case ActionTypes.LoginActionTypes.set_language: {
+      return { ...state, language: action.value }
     }
   }
   return state

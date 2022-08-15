@@ -3,17 +3,27 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router'
 import { AnyAction, Dispatch } from 'redux'
-import { AppBar as MuiAppBar, Box, Container } from '@mui/material'
+import {
+  AppBar as MuiAppBar,
+  Box,
+  Container,
+  FormControl,
+  MenuItem,
+  Select,
+} from '@mui/material'
 import debounce from 'lodash.debounce'
 import _ from 'lodash'
 import { Search, SearchRow, Button, Loader } from '@Components/index'
 import { Logout } from '@Containers/index'
 import SearchService from '@Services/search'
 import Constants from '@Constants/index'
-import { setIsSearching, setSearchData, setShowStatus } from '@App/store/search'
+import { setIsSearching, setSearchData, setShowStatus } from '@Store/search'
+import { setLanguage } from '@Store/login'
 import styles from './styles'
+import { useTranslation } from 'react-i18next'
 
 const AppBar: React.FC = () => {
+  const { t, i18n } = useTranslation()
   const history = useHistory()
   const currentPath = useLocation().pathname
   const [searchValue, setSearchValue] = useState('')
@@ -22,7 +32,7 @@ const AppBar: React.FC = () => {
     (state: IAppState) => state.search,
     shallowEqual
   )
-  const { isLoggedIn } = useSelector(
+  const { isLoggedIn, language } = useSelector(
     (state: IAppState) => state.login,
     shallowEqual
   )
@@ -69,11 +79,13 @@ const AppBar: React.FC = () => {
       dispatch(setShowStatus(false))
     }
 
+    i18n.changeLanguage(language)
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
       debouncedHandle.cancel()
     }
-  }, [ref, dispatch, searchValue, debouncedHandle])
+  }, [ref, dispatch, searchValue, debouncedHandle, i18n, language])
   const SearchedUserList = () => {
     if (users.length === 0) {
       return [
@@ -95,48 +107,64 @@ const AppBar: React.FC = () => {
     ))
     return arr
   }
-  const findPublicUser = (uname: string) => history.push(`/${uname}`)
+  const findPublicUser = (uname: string) => {
+    dispatch(setShowStatus(false))
+    history.push(`${Constants.PublicRoutes.Users}/${uname}`)
+  }
+  const changeLanguage = (e: any) => {
+    dispatch(setLanguage(e.target.value))
+  }
 
   return (
-    <Box sx={styles.root}>
-      <MuiAppBar sx={styles.content} position="relative">
-        <form style={styles.searchForm} onSubmit={handleEnter}>
-          <div ref={ref}>
-            <Search handleSearchText={debouncedHandle} />
-            {show && (
-              <Container sx={styles.searchList}>
-                {isSearching ? <Loader /> : SearchedUserList()}
-              </Container>
-            )}
-          </div>
-          <Button
-            disabled={_.isEmpty(searchValue)}
-            onClickHandler={() => {
-              dispatch(setIsSearching(true))
-              history.push(Constants.PublicRoutes.Search + '/' + searchValue)
-            }}
-            variant="contained"
-            color="info"
-            sx={styles.roundedBtn}
-          >
-            Search
-          </Button>
-        </form>
-        {currentPath === Constants.PrivateRoutes.Profile ? (
-          <Logout />
-        ) : (
-          <Button
-            variant="contained"
-            color="info"
-            onClickHandler={() => history.push(Constants.PrivateRoutes.Profile)}
-            size="medium"
-            disabled={!isLoggedIn}
-          >
-            Back to home
-          </Button>
-        )}
-      </MuiAppBar>
-    </Box>
+    <React.Fragment>
+      <Box sx={styles.root}>
+        <MuiAppBar sx={styles.content} position="relative">
+          <form style={styles.searchForm} onSubmit={handleEnter}>
+            <div ref={ref}>
+              <Search handleSearchText={debouncedHandle} />
+              {show && (
+                <Container sx={styles.searchList}>
+                  {isSearching ? <Loader /> : SearchedUserList()}
+                </Container>
+              )}
+            </div>
+            <Button
+              disabled={_.isEmpty(searchValue)}
+              onClickHandler={() => {
+                dispatch(setIsSearching(true))
+                history.push(Constants.PublicRoutes.Search + '/' + searchValue)
+              }}
+              variant="contained"
+              color="info"
+              sx={styles.roundedBtn}
+            >
+              {t('search')}
+            </Button>
+          </form>
+          {currentPath === Constants.PrivateRoutes.Profile ? (
+            <Logout />
+          ) : (
+            <Button
+              variant="contained"
+              color="info"
+              onClickHandler={() =>
+                history.push(Constants.PrivateRoutes.Profile)
+              }
+              size="medium"
+              disabled={!isLoggedIn}
+            >
+              {t('backToHome')}
+            </Button>
+          )}
+        </MuiAppBar>
+      </Box>
+      <FormControl sx={styles.language}>
+        <Select value={language} onChange={changeLanguage}>
+          <MenuItem value="en">English</MenuItem>
+          <MenuItem value="hindi">हिंदी</MenuItem>
+        </Select>
+      </FormControl>
+    </React.Fragment>
   )
 }
 export default AppBar

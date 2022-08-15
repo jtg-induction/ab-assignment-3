@@ -18,5 +18,5 @@ export enum RESPONSE_STATUS_CODES {
 }
 export enum AUTH {
   username = 'arjun-bhatt-670',
-  token = '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',
+  token = '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',
 }

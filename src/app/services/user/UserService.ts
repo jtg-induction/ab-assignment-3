@@ -2,7 +2,7 @@ import { instance, requestConfig } from '@Services/Service'
 import Constants from '@Constants/index'
 import { UserServiceType } from './type'
 
-export const UserService: UserServiceType = async (username, isFollowed) => {
+export const UserService: UserServiceType = async (username) => {
   const userRequestConfig = requestConfig(
     'GET',
     `${Constants.API.GET_USERS_URL}/${username}`
@@ -11,7 +11,6 @@ export const UserService: UserServiceType = async (username, isFollowed) => {
     .then((response: any) => {
       const data = response.data
       const user: UserState = {
-        isFollowed: isFollowed,
         username: data.login,
         avatarUrl: data.avatar_url,
         followers: data.followers,
@@ -24,7 +23,6 @@ export const UserService: UserServiceType = async (username, isFollowed) => {
       return user
     })
     .catch((e) => {
-      console.log(e)
       return false
     })
 }
